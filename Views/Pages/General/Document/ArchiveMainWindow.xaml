@@ -1,0 +1,41 @@
+﻿<Window x:Class="DocumentArchive.Views.Pages.General.Document.ArchiveMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DocumentArchive.Views.Pages.General.Document"
+        mc:Ignorable="d"
+        Title="Поиск документов" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBlock>
+                <Run Text="Здравствуйте, Ангелина"/>
+            </TextBlock>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="350*"/>
+                <RowDefinition Height="25*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        
+        <Grid Grid.Row="2">
+            <TextBlock>
+                
+                <Run Text="Статистика"/>
+            </TextBlock>
+        </Grid>
+    </Grid>
+</Window>
