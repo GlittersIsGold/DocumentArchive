@@ -7,8 +7,11 @@ using System.Windows.Controls;
 
 namespace DocumentArchive.Controller.Navigation
 {
+	/// <summary>
+	/// Класс перехода по страницам
+	/// </summary>
 	internal class FrameTransition
 	{
-		public static Frame Frame { get; set; }
+		public static Frame Navigator { get; set; }
 	}
 }

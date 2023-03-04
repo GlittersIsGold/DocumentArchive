@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\shelb\OneDrive\Рабочий стол\Diploma\DocumentArchive\App.xaml
-131004761847
+13-781137633
 2-1731429789
-34-443833785
+37-1697930433
 181314306249
-MainWindow.xaml;Views\Pages\Alert\NotificationWindow.xaml;Views\Pages\Exception\ErrorWindow.xaml;Views\Pages\General\Document\ArchiveMainWindow.xaml;Views\Pages\General\Document\ReadWindow.xaml;Views\Pages\General\Document\ShareWindow.xaml;Views\Pages\General\Document\StatisticWindow.xaml;Views\Screens\DepLeader\DepLeadeScreen.xaml;Views\Screens\General\Registration\RegistrationScreen.xaml;Views\Screens\Guest\GuestMainScreen.xaml;Views\Screens\Student\StudentMainScreen.xaml;Views\Screens\Teacher\TeacherMainScreen.xaml;Views\Screens\Tutor\TutorMainScreen.xaml;
+MainWindow.xaml;Views\Pages\Alert\NotificationWindow.xaml;Views\Pages\Exception\ErrorWindow.xaml;Views\Pages\General\Document\ArchiveMainWindow.xaml;Views\Pages\General\Document\ReadWindow.xaml;Views\Pages\General\Document\ShareWindow.xaml;Views\Pages\General\Document\StatisticWindow.xaml;Views\Screens\General\LoginScreen.xaml;Views\Screens\General\RegistrationScreen.xaml;Views\Screens\Guest\GuestMainScreen.xaml;Views\Screens\Staff\StaffMainScreen.xaml;Views\Screens\Student\StudentMainScreen.xaml;Views\Screens\Teacher\TeacherMainScreen.xaml;
 
-True
+False
 

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DocumentArchive.Model.DataConnect
+namespace DocumentArchive.Controller.Connection
 {
-	internal class Connection
+	internal class DataAccess
 	{
 		public static ElectronicDocumentArchiveEntities EDAEntities { get; set; }
 	}

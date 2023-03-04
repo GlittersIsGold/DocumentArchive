@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DocumentArchive.Views.Screens.Tutor
+namespace DocumentArchive.Views.Screens.Staff
 {
 	/// <summary>
-	/// Логика взаимодействия для TutorMainScreen.xaml
+	/// Логика взаимодействия для StaffMainScreen.xaml
 	/// </summary>
-	public partial class TutorMainScreen : Page
+	public partial class StaffMainScreen : Page
 	{
-		public TutorMainScreen()
+		public StaffMainScreen()
 		{
 			InitializeComponent();
 		}

@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\Connection\DataAccess.cs" />
     <Compile Include="Controller\Interface\IGetFile.cs" />
     <Compile Include="Controller\Navigation\FrameTransition.cs" />
     <Compile Include="Model\ADO\Category.cs">
@@ -111,7 +112,9 @@
     <Compile Include="Model\ADO\User.cs">
       <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\DataConnect\Connection.cs" />
+    <Compile Include="Model\FreshUserBuilder.cs" />
+    <Compile Include="Model\UserInfo.cs" />
+    <Compile Include="UserCollector.cs" />
     <Compile Include="Views\Pages\Alert\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
     </Compile>
@@ -130,23 +133,23 @@
     <Compile Include="Views\Pages\General\Document\StatisticWindow.xaml.cs">
       <DependentUpon>StatisticWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Screens\DepLeader\DepLeadeScreen.xaml.cs">
-      <DependentUpon>DepLeadeScreen.xaml</DependentUpon>
+    <Compile Include="Views\Screens\General\LoginScreen.xaml.cs">
+      <DependentUpon>LoginScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Screens\General\Registration\RegistrationScreen.xaml.cs">
+    <Compile Include="Views\Screens\General\RegistrationScreen.xaml.cs">
       <DependentUpon>RegistrationScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Screens\Guest\GuestMainScreen.xaml.cs">
       <DependentUpon>GuestMainScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Screens\Staff\StaffMainScreen.xaml.cs">
+      <DependentUpon>StaffMainScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Screens\Student\StudentMainScreen.xaml.cs">
       <DependentUpon>StudentMainScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Screens\Teacher\TeacherMainScreen.xaml.cs">
       <DependentUpon>TeacherMainScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Screens\Tutor\TutorMainScreen.xaml.cs">
-      <DependentUpon>TutorMainScreen.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -184,15 +187,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Screens\DepLeader\DepLeadeScreen.xaml">
+    <Page Include="Views\Screens\General\LoginScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Screens\General\Registration\RegistrationScreen.xaml">
+    <Page Include="Views\Screens\General\RegistrationScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Screens\Guest\GuestMainScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Screens\Staff\StaffMainScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -201,10 +208,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Screens\Teacher\TeacherMainScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Screens\Tutor\TutorMainScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -261,6 +264,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controller\Agregation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

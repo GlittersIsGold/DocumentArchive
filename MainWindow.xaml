@@ -7,46 +7,13 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        WindowStyle="ThreeDBorderWindow"
-        Title="Вход в систему" Height="200" Width="300">
+        WindowStyle="None"
+        Title="Вход в систему" Height="225" Width="400">
     <Grid>
-
-        <StackPanel 
-            Orientation="Vertical" 
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            >
-            <TextBlock Text="Логин"/>
-            <TextBox Name="TextBoxLogin"/>
-            <TextBlock Text="Пароль"/>
-            <PasswordBox Name="PasswordBoxPassword"/>
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox 
-                        Name="CheckBoxRememberMe"
-                        Checked="CheckBoxRememberMe_Checked"
-                        Content="Запомнить"
-                        />
-                    <Button 
-                        Name="ButtonSignIn"
-                        Click="ButtonSignIn_Click"
-                        Content="Вход"/>
-                </StackPanel>
-            <Button 
-                Name="ButtonSignUp"
-                Click="ButtonSignUp_Click"
-                Content="Регистрация"
-                />
-            <Button 
-                Name="ButtonContinueAsGuest"
-                Click="ButtonContinueAsGuest_Click"
-                Content="Войти как гость"
-                />
-        </StackPanel>
-        
-        <!--<Frame 
-            Name="FrameMain"
-            NavigationUIVisibility="Hidden" 
+        <Frame
+            Name="FrmEnter"
+            NavigationUIVisibility="Hidden"
             Focusable="False"
-            />-->
+            />
     </Grid>
 </Window>

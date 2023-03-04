@@ -9,6 +9,8 @@
       Title="TeacherMainScreen">
 
     <Grid>
-        <TextBlock Text="Страница преподавателя"/>
+        <StackPanel>
+            <TextBlock Text="Страница преподавателя"/>
+        </StackPanel>
     </Grid>
 </Page>

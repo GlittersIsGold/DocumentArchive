@@ -1,0 +1,58 @@
+﻿<Page x:Class="DocumentArchive.Views.Screens.General.RegistrationScreen"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DocumentArchive.Views.Screens.General"
+      mc:Ignorable="d" 
+      d:DesignHeight="225" d:DesignWidth="400"
+      Title="RegistrationScreen">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+    
+            
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="Логин"/>
+                <TextBox Name="TextBoxLogin"/>
+                
+                <TextBlock Text="Пароль"/>
+                <PasswordBox Name="PasswordBoxPassword"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+                <TextBlock Text="Имя"/>
+                <TextBox Name="TextBoxName"/>
+            
+
+                <TextBlock Text="Почта"/>
+                <TextBox Name="TextBoxEmail"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Vertical">
+                <Button 
+                    Name="ButtonSignUp"
+                    Click="ButtonSignUp_Click"
+                    Content="Зарегистрироваться"
+                />
+                <Button 
+                    Name="ButtonGoToSignIn"
+                    Click="ButtonGoToSignIn_Click"
+                    Content="Войти"
+                    />
+            </StackPanel>
+
+    </Grid>
+</Page>
