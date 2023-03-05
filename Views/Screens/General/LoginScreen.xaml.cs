@@ -27,7 +27,6 @@ namespace DocumentArchive.Views.Screens.General
 		{
 			InitializeComponent();
 			DataAccess.EDAEntities = new Model.ADO.ElectronicDocumentArchiveEntities();
-
 		}
 
 		private void ButtonSignIn_Click(object sender, RoutedEventArgs e)
@@ -42,15 +41,19 @@ namespace DocumentArchive.Views.Screens.General
 					{
 						case 1:
 							new ArchiveMainWindow().Show();
+							FrameTransition.EnterWindowClosing();
 							break;
 						case 2:
 							new ArchiveMainWindow().Show();
+							FrameTransition.EnterWindowClosing();
 							break;
 						case 3:
 							new ArchiveMainWindow().Show();
+							FrameTransition.EnterWindowClosing();
 							break;
 						case 4:
 							new ArchiveMainWindow().Show();
+							FrameTransition.EnterWindowClosing();
 							break;
 
 						default: throw new Exception("Проблема идентификации пользователя");
@@ -81,7 +84,8 @@ namespace DocumentArchive.Views.Screens.General
 
 		private void ButtonContinueAsGuest_Click(object sender, RoutedEventArgs e)
 		{
-			
+			new ArchiveMainWindow().Show();
+			FrameTransition.EnterWindowClosing();
 		}
 	}
 }
