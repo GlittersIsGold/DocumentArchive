@@ -6,37 +6,12 @@
         xmlns:local="clr-namespace:DocumentArchive.Views.Pages.General.Document"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Поиск документов" Height="450" Width="800">
+        Title="Главная" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0">
-            <TextBlock>
-                <Run Text="Здравствуйте, Ангелина"/>
-            </TextBlock>
-        </Grid>
-        
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="350*"/>
-                <RowDefinition Height="25*"/>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-        </Grid>
-        
-        <Grid Grid.Row="2">
-            <TextBlock>
-                
-                <Run Text="Статистика"/>
-            </TextBlock>
-        </Grid>
+        <Frame
+            Name="FrmMain"
+            NavigationUIVisibility="Hidden"
+            Focusable="False"
+            />
     </Grid>
 </Window>

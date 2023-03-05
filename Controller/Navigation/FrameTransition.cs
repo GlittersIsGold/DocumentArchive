@@ -15,6 +15,9 @@ namespace DocumentArchive.Controller.Navigation
 	{
 		public static Frame Navigator { get; set; }
 
+		/// <summary>
+		/// Закрытие окна входа
+		/// </summary>
 		public static void EnterWindowClosing() 
 		{
 			Application.Current.MainWindow.Close();

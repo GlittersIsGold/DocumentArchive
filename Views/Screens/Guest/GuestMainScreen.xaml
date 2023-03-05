@@ -6,9 +6,48 @@
       xmlns:local="clr-namespace:DocumentArchive.Views.Screens.Guest"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="GuestMainScreen">
+      Title="Страница гостя">
 
     <Grid>
-        <TextBlock Text="Страница гостя"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="206*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+            
+        <StackPanel Grid.Row="0" Margin="0">
+            <TextBlock>
+                <Run Text="Гость"/>
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Поиск"/>
+                <CheckBox Margin="10, 4, 0, 0"/>
+                <TextBlock Text="Глубокий"/>
+            </StackPanel>
+            <TextBox/>
+        
+            <DataGrid 
+                Name="DgPublicFiles"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                Focusable="False"
+                Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding }" Width="*"/>
+                    <DataGridTextColumn Header="Описание" Binding="{Binding }" Width="2*"/>
+                    <DataGridTextColumn Header="Источник" Binding="{Binding }" Width="2*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Margin="0">
+            <TextBlock>
+                <Run Text="Статистика"/>
+            </TextBlock>
+        </StackPanel>
+        
     </Grid>
 </Page>

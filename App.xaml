@@ -28,6 +28,10 @@
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="2.5"/>
         </Style>
+         
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="2.5"/>
+        </Style>
         
 
     </Application.Resources>

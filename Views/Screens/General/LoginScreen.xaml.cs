@@ -1,20 +1,11 @@
 ﻿using DocumentArchive.Controller.Connection;
 using DocumentArchive.Controller.Navigation;
+using DocumentArchive.Model;
 using DocumentArchive.Views.Pages.General.Document;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DocumentArchive.Views.Screens.General
 {
@@ -23,6 +14,8 @@ namespace DocumentArchive.Views.Screens.General
 	/// </summary>
 	public partial class LoginScreen : Page
 	{
+		private int userId;
+
 		public LoginScreen()
 		{
 			InitializeComponent();
@@ -33,26 +26,33 @@ namespace DocumentArchive.Views.Screens.General
 		{
 			try
 			{
-				var data = DataAccess.EDAEntities.Users.FirstOrDefault(u => u.Login == TextBoxLogin.Text && u.Password == PasswordBoxPassword.Password);
+				var UserDataToLogin = 
+					DataAccess.EDAEntities.Users.FirstOrDefault(
+						u => u.Login == TextBoxLogin.Text && u.Password == PasswordBoxPassword.Password
+						);
 
-				if (data != null)
+				userId = UserDataToLogin.Id;
+
+				/// в экземпляр класса	вызвать окно	распокавать объект
+
+				if (UserDataToLogin != null)
 				{
-					switch (data.RoleId)
+					switch (UserDataToLogin.RoleId)
 					{
 						case 1:
-							new ArchiveMainWindow().Show();
+							new ArchiveMainWindow(userId).Show();
 							FrameTransition.EnterWindowClosing();
 							break;
 						case 2:
-							new ArchiveMainWindow().Show();
+							new ArchiveMainWindow(userId).Show();
 							FrameTransition.EnterWindowClosing();
 							break;
 						case 3:
-							new ArchiveMainWindow().Show();
+							new ArchiveMainWindow(userId).Show();
 							FrameTransition.EnterWindowClosing();
 							break;
 						case 4:
-							new ArchiveMainWindow().Show();
+							new ArchiveMainWindow(userId).Show();
 							FrameTransition.EnterWindowClosing();
 							break;
 
@@ -84,7 +84,7 @@ namespace DocumentArchive.Views.Screens.General
 
 		private void ButtonContinueAsGuest_Click(object sender, RoutedEventArgs e)
 		{
-			new ArchiveMainWindow().Show();
+			new ArchiveMainWindow(userId).Show();
 			FrameTransition.EnterWindowClosing();
 		}
 	}

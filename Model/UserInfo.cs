@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DocumentArchive.Model
+﻿namespace DocumentArchive.Model
 {
-	internal class UserInfo
+    /// <summary>
+    /// Хранение данных о пользователе во время сеанса
+    /// </summary>
+	public class UserPrimaryData
 	{
+        internal int Id { get; }
+		internal string Name { get; }
 
-	}
+		public UserPrimaryData(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+    }
 }
