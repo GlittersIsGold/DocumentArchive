@@ -14,7 +14,7 @@ namespace DocumentArchive.Views.Screens.General
 	/// </summary>
 	public partial class LoginScreen : Page
 	{
-		private int userId;
+		private int userId = 1;
 
 		public LoginScreen()
 		{
@@ -32,8 +32,6 @@ namespace DocumentArchive.Views.Screens.General
 						);
 
 				userId = UserDataToLogin.Id;
-
-				/// в экземпляр класса	вызвать окно	распокавать объект
 
 				if (UserDataToLogin != null)
 				{

@@ -1,4 +1,9 @@
-﻿using DocumentArchive.Model;
+﻿using DocumentArchive.Controller.Navigation;
+using DocumentArchive.Model;
+using DocumentArchive.Views.Screens.Guest;
+using DocumentArchive.Views.Screens.Student;
+using DocumentArchive.Views.Screens.Teacher;
+using System;
 using System.Collections;
 using System.Windows;
 
@@ -12,10 +17,31 @@ namespace DocumentArchive.Views.Pages.General.Document
 		public ArchiveMainWindow(int userId)
 		{
 			InitializeComponent();
-		}
 
-		/// принять ид
-		/// подтянуть данные
-		/// перевести на страницу
+			FrameTransition.Navigator = FrmMain;
+
+			switch (userId)
+			{
+				case 1:
+					FrmMain.Navigate(new GuestMainScreen());
+					break;
+				case 2:
+					FrmMain.Navigate(new GuestMainScreen());
+					break;
+				case 3:
+					FrmMain.Navigate(new StudentMainScreen());
+					break;
+				case 4:
+					FrmMain.Navigate(new TeacherMainScreen());
+					break;
+				case 5:
+					FrmMain.Navigate(new TeacherMainScreen());
+					break;
+
+				default:
+					Console.WriteLine("Фрагменты .dll не найдены");
+					break;
+			}
+		}
 	}
 }
