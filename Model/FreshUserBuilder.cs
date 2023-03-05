@@ -3,15 +3,16 @@
 namespace DocumentArchive.Model
 {
 	/// <summary>
-	/// Экземпляры этого класса создают новых пользователей в системе при регистрации
+	/// Экземпляры этого класса создают новых пользователей в системе при регистрации.
+	/// Содержит свойства DocumentArchive.Model.ADO.User
 	/// </summary>
-	internal class FreshUserBuilder : User
+	internal class FreshUserBuilder
 	{
-		public new string Login { get; set; }
-		public new string Password { get; set; }
-		public new string Name { get; set; }
-		public new string Email { get; set; }
-		public new System.DateTime Registered { get; set; }
-		public new int RoleId { get; set; }
+		public string Login { get; set; }
+		public string Password { get; set; }
+		public string Name { get; set; }
+		public string Email { get; set; }
+		public System.DateTime Registered { get; set; }
+		public int RoleId { get; set; }
 	}
 }

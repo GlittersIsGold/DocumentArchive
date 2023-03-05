@@ -1,6 +1,6 @@
 ﻿using DocumentArchive.Controller.Connection;
 using DocumentArchive.Controller.Navigation;
-using DocumentArchive.Model;
+using DocumentArchive.Model.ADO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +43,7 @@ namespace DocumentArchive.Views.Screens.General
 				{
 					List<Model.ADO.User> ExistingUsers = DataAccess.EDAEntities.Users.ToList();
 
-					FreshUserBuilder freshUser = new FreshUserBuilder()
+					User user = new User()
 					{
 						Login = TextBoxLogin.Text,
 						Password = PasswordBoxPassword.Password,
@@ -52,24 +52,26 @@ namespace DocumentArchive.Views.Screens.General
 						Registered = DateTime.Now,
 						RoleId = 1
 					};
-					///
-					/// В асинхрон всё нужно
-					///
-					// проверка на существование
-					bool IsUserExist = ExistingUsers.Any(x => x.Email == freshUser.Email || x.Login == freshUser.Login);
+
+					/// Field checks
+					/// Ovverride Excpetions
+					/// Add async
+					/// Decompose through classes
+
+					bool IsUserExist = ExistingUsers.Any(x => x.Email == user.Email || x.Login == user.Login);
 
 					if (IsUserExist == false)
 					{
 						try
 						{
-							// добавление доделать
-							DataAccess.EDAEntities.Users.Add(freshUser);
+							DataAccess.EDAEntities.Users.Add(user);
 							DataAccess.EDAEntities.SaveChanges();
+							MessageBox.Show("Данные отправлены, дождитесь подтверждения");
 						}
 						catch (Exception ex)
 						{
-							MessageBox.Show(ex.Message.ToString());
-							throw;
+							MessageBox.Show("При попытке регистарции возникла проблема");
+							throw new Exception(ex.Message);
 						}
 					}
 					else
@@ -79,7 +81,7 @@ namespace DocumentArchive.Views.Screens.General
 				}
 				catch (Exception ex)
 				{
-					MessageBox.Show("Не удалось зарегистрировать");
+					MessageBox.Show("Не удалось обработать данные");
 					throw new Exception(ex.Message);
 				}
 			}
