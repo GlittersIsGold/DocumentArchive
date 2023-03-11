@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DocumentArchive.Views.Pages.General.Document"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Главная" Height="450" Width="800">
+        Title="Электронный архив" Height="675" Width="1200">
     <Grid>
         <Frame
             Name="FrmMain"

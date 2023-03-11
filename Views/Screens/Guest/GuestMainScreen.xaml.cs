@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DocumentArchive.Controller.Navigation;
+using DocumentArchive.Model.ADO;
+using DocumentArchive.Views.Pages.General.Document;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +27,20 @@ namespace DocumentArchive.Views.Screens.Guest
 		{
 			InitializeComponent();
 		}
-	}
+
+		private void BtnOpenReader_Click(object sender, RoutedEventArgs e)
+		{
+
+        }
+
+		private void BtnNextStrings_Click(object sender, RoutedEventArgs e)
+		{
+
+        }
+
+		private void BtnLogin_Click(object sender, RoutedEventArgs e)
+		{
+			new MainWindow().Show();
+		}
+    }
 }
