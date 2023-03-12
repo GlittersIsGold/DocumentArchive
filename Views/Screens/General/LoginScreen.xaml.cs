@@ -1,6 +1,5 @@
 ﻿using DocumentArchive.Controller.Connection;
 using DocumentArchive.Controller.Navigation;
-using DocumentArchive.Model;
 using DocumentArchive.Views.Pages.General.Document;
 using System;
 using System.Linq;
@@ -20,6 +19,14 @@ namespace DocumentArchive.Views.Screens.General
 		{
 			InitializeComponent();
 			DataAccess.EDAEntities = new Model.ADO.ElectronicDocumentArchiveEntities();
+
+			/// Исправить на binding -https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/application-settings-architecture?view=netframeworkdesktop-4.8
+			if (Properties.Settings.Default.IsChbClicked == true)
+			{
+				TextBoxLogin.Text = Properties.Settings.Default.userName;
+				PasswordBoxPassword.Password = Properties.Settings.Default.userPass;
+				CheckBoxRememberMe.IsChecked = Properties.Settings.Default.IsChbClicked;
+			}
 		}
 
 		private void ButtonSignIn_Click(object sender, RoutedEventArgs e)
@@ -31,48 +38,51 @@ namespace DocumentArchive.Views.Screens.General
 						u => u.Login == TextBoxLogin.Text && u.Password == PasswordBoxPassword.Password
 						);
 
-				userId = UserDataToLogin.Id;
-
 				if (UserDataToLogin != null)
 				{
+
+					userId = UserDataToLogin.Id;
+					
 					switch (UserDataToLogin.RoleId)
 					{
 						case 1:
 							new ArchiveMainWindow(userId).Show();
-							FrameTransition.EnterWindowClosing();
+							Window.GetWindow(this).Close();
 							break;
 						case 2:
 							new ArchiveMainWindow(userId).Show();
-							FrameTransition.EnterWindowClosing();
+							Window.GetWindow(this).Close();
 							break;
 						case 3:
 							new ArchiveMainWindow(userId).Show();
-							FrameTransition.EnterWindowClosing();
+							Window.GetWindow(this).Close();
 							break;
 						case 4:
 							new ArchiveMainWindow(userId).Show();
-							FrameTransition.EnterWindowClosing();
+							Window.GetWindow(this).Close();
 							break;
 
-						default: throw new Exception("Проблема идентификации пользователя");
+						default: 
+							throw new Exception("Проблема идентификации пользователя");
 					}
 				}
 				else
 				{
-					MessageBox.Show("Пользователь не найден");
+					MessageBox.Show("Неверные данные");
 				}
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message);
-				throw;
-
+				MessageBox.Show("При обработке данных возникла ошибка\nсмотрите полную информацию во внутреннем исключении");
+				throw new Exception(ex.Message);
 			}
 		}
 
 		private void CheckBoxRememberMe_Checked(object sender, RoutedEventArgs e)
 		{
-
+			Properties.Settings.Default.userName = TextBoxLogin.Text;
+			Properties.Settings.Default.userPass = PasswordBoxPassword.Password;
+			Properties.Settings.Default.IsChbClicked = CheckBoxRememberMe.IsChecked;
 		}
 
 		private void ButtonSignUp_Click(object sender, RoutedEventArgs e)
@@ -83,7 +93,7 @@ namespace DocumentArchive.Views.Screens.General
 		private void ButtonContinueAsGuest_Click(object sender, RoutedEventArgs e)
 		{
 			new ArchiveMainWindow(userId).Show();
-			FrameTransition.EnterWindowClosing();
+			Window.GetWindow(this).Close();
 		}
 	}
 }

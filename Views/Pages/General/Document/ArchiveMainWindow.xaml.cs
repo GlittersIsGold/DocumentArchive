@@ -1,10 +1,8 @@
 ﻿using DocumentArchive.Controller.Navigation;
-using DocumentArchive.Model;
 using DocumentArchive.Views.Screens.Guest;
 using DocumentArchive.Views.Screens.Student;
 using DocumentArchive.Views.Screens.Teacher;
 using System;
-using System.Collections;
 using System.Windows;
 
 namespace DocumentArchive.Views.Pages.General.Document
@@ -17,7 +15,6 @@ namespace DocumentArchive.Views.Pages.General.Document
 		public ArchiveMainWindow(int userId)
 		{
 			InitializeComponent();
-
 			FrameTransition.Navigator = FrmMain;
 
 			switch (userId)
@@ -39,8 +36,8 @@ namespace DocumentArchive.Views.Pages.General.Document
 					break;
 
 				default:
-					Console.WriteLine("Фрагменты .dll не найдены");
-					break;
+					MessageBox.Show("Возникла ошибка\nсмотрите информацию во внутреннем исключении");
+					throw new Exception("Не найдены фрагменты .dll");
 			}
 		}
 	}

@@ -1,6 +1,4 @@
-﻿using DocumentArchive.Model.ADO;
-
-namespace DocumentArchive.Model
+﻿namespace DocumentArchive.Model
 {
 	/// <summary>
 	/// Экземпляры этого класса создают новых пользователей в системе при регистрации.
