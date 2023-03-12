@@ -1,6 +1,5 @@
 ﻿using DocumentArchive.Controller.Connection;
 using DocumentArchive.Controller.Navigation;
-using DocumentArchive.Model;
 using DocumentArchive.Views.Pages.General.Document;
 using System;
 using System.Linq;
@@ -20,59 +19,73 @@ namespace DocumentArchive.Views.Screens.General
 		{
 			InitializeComponent();
 			DataAccess.EDAEntities = new Model.ADO.ElectronicDocumentArchiveEntities();
+
+			/// сделать через биндинг
+			TextBoxLogin.Text = Properties.Settings.Default.userName;
+			PasswordBoxPassword.Password = Properties.Settings.Default.userPass;
+			CheckBoxRememberMe.IsChecked = CheckBoxRememberMe.IsChecked;
 		}
 
 		private void ButtonSignIn_Click(object sender, RoutedEventArgs e)
 		{
-			try
+			/// Добавить RegEx
+			if (TextBoxLogin.Text != string.Empty && PasswordBoxPassword.Password != string.Empty)
 			{
-				var UserDataToLogin = 
-					DataAccess.EDAEntities.Users.FirstOrDefault(
-						u => u.Login == TextBoxLogin.Text && u.Password == PasswordBoxPassword.Password
-						);
-
-				userId = UserDataToLogin.Id;
-
-				if (UserDataToLogin != null)
+				
+				try
 				{
-					switch (UserDataToLogin.RoleId)
-					{
-						case 1:
-							new ArchiveMainWindow(userId).Show();
-							FrameTransition.EnterWindowClosing();
-							break;
-						case 2:
-							new ArchiveMainWindow(userId).Show();
-							FrameTransition.EnterWindowClosing();
-							break;
-						case 3:
-							new ArchiveMainWindow(userId).Show();
-							FrameTransition.EnterWindowClosing();
-							break;
-						case 4:
-							new ArchiveMainWindow(userId).Show();
-							FrameTransition.EnterWindowClosing();
-							break;
+					var UserDataToLogin = 
+						DataAccess.EDAEntities.Users.FirstOrDefault(
+							u => u.Login == TextBoxLogin.Text && u.Password == PasswordBoxPassword.Password
+							);
 
-						default: throw new Exception("Проблема идентификации пользователя");
+
+					if (UserDataToLogin != null)
+					{
+						userId = UserDataToLogin.Id;
+					
+						switch (UserDataToLogin.RoleId)
+						{
+							case 1:
+								new ArchiveMainWindow(userId).Show();
+								Window.GetWindow(this).Close();
+								break;
+							case 2:
+								new ArchiveMainWindow(userId).Show();
+								Window.GetWindow(this).Close();
+								break;
+							case 3:
+								new ArchiveMainWindow(userId).Show();
+								Window.GetWindow(this).Close();
+								break;
+							case 4:
+								new ArchiveMainWindow(userId).Show();
+								Window.GetWindow(this).Close();
+								break;
+
+							default: throw new Exception("Проблема идентификации пользователя");
+						}
+					}
+					else
+					{
+						MessageBox.Show("Пользователь не найден");
 					}
 				}
-				else
+				catch (Exception ex)
 				{
-					MessageBox.Show("Пользователь не найден");
-				}
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-				throw;
+					MessageBox.Show(ex.Message);
+					throw;
 
+				}
 			}
 		}
 
 		private void CheckBoxRememberMe_Checked(object sender, RoutedEventArgs e)
 		{
-
+			/// добавить действия на анчек
+			Properties.Settings.Default.userName = TextBoxLogin.Text;
+			Properties.Settings.Default.userPass = PasswordBoxPassword.Password;
+			Properties.Settings.Default.IsChbChecked = CheckBoxRememberMe.IsChecked;
 		}
 
 		private void ButtonSignUp_Click(object sender, RoutedEventArgs e)
@@ -83,7 +96,7 @@ namespace DocumentArchive.Views.Screens.General
 		private void ButtonContinueAsGuest_Click(object sender, RoutedEventArgs e)
 		{
 			new ArchiveMainWindow(userId).Show();
-			FrameTransition.EnterWindowClosing();
+			Window.GetWindow(this).Close();
 		}
 	}
 }

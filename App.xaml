@@ -31,6 +31,10 @@
          
         <Style TargetType="DataGrid">
             <Setter Property="Margin" Value="2.5"/>
+        </Style> 
+        
+        <Style TargetType="ListBox">
+            <Setter Property="Margin" Value="2.5"/>
         </Style>
         
 

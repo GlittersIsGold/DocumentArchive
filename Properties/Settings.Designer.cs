@@ -18,6 +18,8 @@ namespace DocumentArchive.Properties
 	{
 
 		private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+		internal string userName;
+		internal string userPass;
 
 		public static Settings Default
 		{
@@ -26,5 +28,7 @@ namespace DocumentArchive.Properties
 				return defaultInstance;
 			}
 		}
+
+		public bool? IsChbChecked { get; internal set; }
 	}
 }

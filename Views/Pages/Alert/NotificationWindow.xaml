@@ -7,9 +7,28 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Title="Уведомление" Height="150" Width="300">
+        Title="Уведомление" Height="220.5" Width="392">
     <Grid>
-        <StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Grid.Row="0">
+            <TextBlock>
+                <Run Text="Header"/>
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock>
+                <Run Text="Body"/>
+            </TextBlock>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="3">
             <Button Content="Ок"/>
         </StackPanel>
     </Grid>

@@ -5,12 +5,156 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DocumentArchive.Views.Screens.Teacher"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="675" d:DesignWidth="1200"
       Title="TeacherMainScreen">
 
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Страница преподавателя"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="200*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Row="0" Grid.Column="0">
+            <StackPanel>
+                <TextBlock Margin="0">
+                    <Run Text="Вы зашли как препродаватель"/>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+
+            <Button 
+                Name="BtnUploadFile"
+                Click="BtnUploadFile_Click"
+                Content="Загрузить файл"/>
         </StackPanel>
+        
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Поиск"/>
+                <CheckBox Margin="10, 4, 0, 0"/>
+                <TextBlock Text="Искать по содержимому"/>
+            </StackPanel>
+
+            <TextBox 
+                Name="TbSearchQuery"
+                Height="24"
+                />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Name="BtnNextStrings"
+                    Click="BtnNextStrings_Click"
+                    Grid.Column="0"
+                    Margin="0"
+                    Content="&lt;"/>
+                <ListBox 
+                Name="LbPinnedFiles"
+                Grid.Column="1"
+                Height="60"
+                Margin="0"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel 
+                            Orientation="Horizontal" 
+                            IsItemsHost="True">
+                            </StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button 
+                    Name="BtnPreviousStrings"
+                    Click="BtnPreviousStrings_Click"
+                    Grid.Column="2"
+                    Margin="0"
+                    Content="&gt;"/>
+            </Grid>
+
+            <DataGrid 
+                Name="DgPublicFiles"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                Focusable="False"
+                Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="" Width="0.5*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding }"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn 
+                        Header="Имя" 
+                        Binding="{Binding }"
+                        Width="*"/>
+                    <DataGridTextColumn 
+                        Header="Описание" 
+                        Binding="{Binding }" 
+                        Width="2*"/>
+                    <DataGridTextColumn 
+                        Header="Изменён" 
+                        Binding="{Binding }" 
+                        Width="2*"/>
+                    <DataGridTextColumn 
+                        Header="Источник" 
+                        Binding="{Binding }" 
+                        Width="2*"/>
+
+                    <DataGridTemplateColumn Header="" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button 
+                                        Name="BtnOpenReader"
+                                        Click="BtnOpenReader_Click"
+                                        Content="Открыть"
+                                        />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <Grid Grid.Row="2" Grid.Column="1" Margin="0" HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0">
+                <Run Text="Файлов в системе:"/>
+                <Run Name="RnCountFiles" Text=""/>
+            </TextBlock>
+
+            <TextBlock Grid.Column="1">
+                <Run Text="Обновлено:"/>
+                <Run Name="RnLastUpdate" Text=""/>
+            </TextBlock>
+        </Grid>
     </Grid>
+    
 </Page>

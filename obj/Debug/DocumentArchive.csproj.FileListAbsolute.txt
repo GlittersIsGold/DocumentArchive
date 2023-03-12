@@ -110,3 +110,6 @@ C:\Users\shelb\OneDrive\Рабочий стол\Diploma\DocumentArchive\obj\Debu
 C:\Users\shelb\OneDrive\Рабочий стол\Diploma\DocumentArchive\obj\Debug\Views\Screens\General\RegistrationScreen.g.cs
 C:\Users\shelb\OneDrive\Рабочий стол\Diploma\DocumentArchive\obj\Debug\Views\Screens\General\LoginScreen.baml
 C:\Users\shelb\OneDrive\Рабочий стол\Diploma\DocumentArchive\obj\Debug\Views\Screens\General\RegistrationScreen.baml
+C:\Users\shelb\OneDrive\Рабочий стол\Diploma\DocumentArchive\bin\Debug\Newtonsoft.Json.dll
+C:\Users\shelb\OneDrive\Рабочий стол\Diploma\DocumentArchive\bin\Debug\Newtonsoft.Json.xml
+C:\Users\shelb\OneDrive\Рабочий стол\Diploma\DocumentArchive\bin\Debug\ru\EntityFramework.SqlServer.resources.dll

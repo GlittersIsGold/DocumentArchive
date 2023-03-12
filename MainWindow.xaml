@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        WindowStyle="None"
         Title="Вход в систему" Height="225" Width="400">
     <Grid>
         <Frame
