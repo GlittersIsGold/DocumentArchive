@@ -7,21 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DocumentArchive.Model.ADO
+namespace DocumentArchive.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class StorageHistory
+    public partial class UserFile
     {
         public int Id { get; set; }
         public int UserId { get; set; }
         public int FileInfoId { get; set; }
         public System.DateTime DateUpload { get; set; }
-        public int StatusId { get; set; }
     
         public virtual FileInfo FileInfo { get; set; }
-        public virtual StatusUpload StatusUpload { get; set; }
         public virtual User User { get; set; }
     }
 }

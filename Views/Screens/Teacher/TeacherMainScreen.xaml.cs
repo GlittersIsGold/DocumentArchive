@@ -21,9 +21,9 @@ namespace DocumentArchive.Views.Screens.Teacher
 		string[] FilePaths = new string[10];
 
 		/// <summary>
-		/// Очередь с подкотовленными файлами к сериализации
+		/// Очередь с подготовленными файлами к сериализации
 		/// </summary>
-		Queue<Model.ADO.FileInfo> FilesToUpload = new Queue<Model.ADO.FileInfo>();
+		Queue<Model.FileInfo> FilesToUpload = new Queue<Model.FileInfo>();
 
 		public TeacherMainScreen()
 		{
@@ -52,13 +52,12 @@ namespace DocumentArchive.Views.Screens.Teacher
 				FilePaths = dialogScreen.FileNames;
 
 				/// нужно добавить проверку по весу и количеству
-
 				try
 				{
 					foreach (var filePointer in FilePaths)
 					{
 
-						Model.ADO.FileInfo file = new Model.ADO.FileInfo()
+						Model.FileInfo file = new Model.FileInfo()
 						{
 							Title = Path.GetFileName(filePointer),
 							Description = File.GetAttributes(filePointer).ToString(),
@@ -66,9 +65,11 @@ namespace DocumentArchive.Views.Screens.Teacher
 							Created = File.GetCreationTime(filePointer),
 							Expression = File.ReadAllBytes(filePointer),
 							CategoryId = 1,
+							AccessLevelId = 1,
+							ShareLink = "нет",
 						};
 
-						DataAccess.EDAEntities.FileInfoes.Add(file);
+						DataAccess.EDAEntities.FileInfo.Add(file);
 						await DataAccess.EDAEntities.SaveChangesAsync();
 					}
 

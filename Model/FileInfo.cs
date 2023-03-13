@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DocumentArchive.Model.ADO
+namespace DocumentArchive.Model
 {
     using System;
     using System.Collections.Generic;
@@ -17,9 +17,9 @@ namespace DocumentArchive.Model.ADO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FileInfo()
         {
-            this.Descriptions = new HashSet<Description>();
-            this.FilterStorages = new HashSet<FilterStorage>();
-            this.StorageHistories = new HashSet<StorageHistory>();
+            this.Description1 = new HashSet<Description>();
+            this.FilterStorage = new HashSet<FilterStorage>();
+            this.UserFile = new HashSet<UserFile>();
         }
     
         public int Id { get; set; }
@@ -29,13 +29,16 @@ namespace DocumentArchive.Model.ADO
         public System.DateTime Created { get; set; }
         public byte[] Expression { get; set; }
         public int CategoryId { get; set; }
+        public int AccessLevelId { get; set; }
+        public string ShareLink { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Description> Descriptions { get; set; }
+        public virtual ICollection<Description> Description1 { get; set; }
+        public virtual FileAccessLevel FileAccessLevel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FilterStorage> FilterStorages { get; set; }
+        public virtual ICollection<FilterStorage> FilterStorage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StorageHistory> StorageHistories { get; set; }
+        public virtual ICollection<UserFile> UserFile { get; set; }
     }
 }

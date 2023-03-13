@@ -20,6 +20,13 @@
           <Property Name="Information" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="FileInfoId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="FileAccessLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="FileInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -31,6 +38,8 @@
           <Property Name="Created" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Expression" Type="varbinary(max)" Nullable="false" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="AccessLevelId" Type="int" Nullable="false" />
+          <Property Name="ShareLink" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="FilterStorage">
           <Key>
@@ -51,24 +60,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="StatusUpload">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DateUpload" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="StorageHistory">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="FileInfoId" Type="int" Nullable="false" />
-          <Property Name="DateUpload" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -84,7 +75,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="400" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -97,6 +88,31 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Registered" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="FileInfoId" Type="int" Nullable="false" />
+          <Property Name="DateUpload" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "ElectronicDocumentArchiveManagement.dbo.GuestFileInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="GuestFileInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="Created" />
+            <PropertyRef Name="ShareLink" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="Created" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ShareLink" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <Association Name="FK_Description_FileInfo">
           <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="1" />
@@ -119,6 +135,18 @@
             </Principal>
             <Dependent Role="FileInfo">
               <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileInfo_FileAccessLevel">
+          <End Role="FileAccessLevel" Type="Self.FileAccessLevel" Multiplicity="1" />
+          <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileAccessLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FileInfo">
+              <PropertyRef Name="AccessLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -160,36 +188,24 @@
         </Association>
         <Association Name="FK_StorageHistory_FileInfo">
           <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="1" />
-          <End Role="StorageHistory" Type="Self.StorageHistory" Multiplicity="*" />
+          <End Role="UserFile" Type="Self.UserFile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FileInfo">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="StorageHistory">
+            <Dependent Role="UserFile">
               <PropertyRef Name="FileInfoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StorageHistory_StatusUpload">
-          <End Role="StatusUpload" Type="Self.StatusUpload" Multiplicity="1" />
-          <End Role="StorageHistory" Type="Self.StorageHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StatusUpload">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="StorageHistory">
-              <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StorageHistory_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="StorageHistory" Type="Self.StorageHistory" Multiplicity="*" />
+          <End Role="UserFile" Type="Self.UserFile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="StorageHistory">
+            <Dependent Role="UserFile">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -209,20 +225,33 @@
         <EntityContainer Name="Хранилище ElectronicDocumentArchiveManagementModelContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Description" EntityType="Self.Description" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileAccessLevel" EntityType="Self.FileAccessLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileInfo" EntityType="Self.FileInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FilterStorage" EntityType="Self.FilterStorage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StatusUpload" EntityType="Self.StatusUpload" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StorageHistory" EntityType="Self.StorageHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TextSearching" EntityType="Self.TextSearching" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserFile" EntityType="Self.UserFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GuestFileInfo" EntityType="Self.GuestFileInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [GuestFileInfo].[Id] AS [Id], 
+    [GuestFileInfo].[Title] AS [Title], 
+    [GuestFileInfo].[Description] AS [Description], 
+    [GuestFileInfo].[Created] AS [Created], 
+    [GuestFileInfo].[ShareLink] AS [ShareLink]
+    FROM [dbo].[GuestFileInfo] AS [GuestFileInfo]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Description_FileInfo" Association="Self.FK_Description_FileInfo">
             <End Role="FileInfo" EntitySet="FileInfo" />
             <End Role="Description" EntitySet="Description" />
           </AssociationSet>
           <AssociationSet Name="FK_FileInfo_Category" Association="Self.FK_FileInfo_Category">
             <End Role="Category" EntitySet="Category" />
+            <End Role="FileInfo" EntitySet="FileInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileInfo_FileAccessLevel" Association="Self.FK_FileInfo_FileAccessLevel">
+            <End Role="FileAccessLevel" EntitySet="FileAccessLevel" />
             <End Role="FileInfo" EntitySet="FileInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_FilterStorage_Description" Association="Self.FK_FilterStorage_Description">
@@ -239,15 +268,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_StorageHistory_FileInfo" Association="Self.FK_StorageHistory_FileInfo">
             <End Role="FileInfo" EntitySet="FileInfo" />
-            <End Role="StorageHistory" EntitySet="StorageHistory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StorageHistory_StatusUpload" Association="Self.FK_StorageHistory_StatusUpload">
-            <End Role="StatusUpload" EntitySet="StatusUpload" />
-            <End Role="StorageHistory" EntitySet="StorageHistory" />
+            <End Role="UserFile" EntitySet="UserFile" />
           </AssociationSet>
           <AssociationSet Name="FK_StorageHistory_User" Association="Self.FK_StorageHistory_User">
             <End Role="User" EntitySet="User" />
-            <End Role="StorageHistory" EntitySet="StorageHistory" />
+            <End Role="UserFile" EntitySet="UserFile" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
@@ -265,7 +290,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="FileInfoes" Relationship="Self.FK_FileInfo_Category" FromRole="Category" ToRole="FileInfo" />
+          <NavigationProperty Name="FileInfo" Relationship="Self.FK_FileInfo_Category" FromRole="Category" ToRole="FileInfo" />
         </EntityType>
         <EntityType Name="Description">
           <Key>
@@ -275,7 +300,15 @@
           <Property Name="Information" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FileInfoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FileInfo" Relationship="Self.FK_Description_FileInfo" FromRole="Description" ToRole="FileInfo" />
-          <NavigationProperty Name="FilterStorages" Relationship="Self.FK_FilterStorage_Description" FromRole="Description" ToRole="FilterStorage" />
+          <NavigationProperty Name="FilterStorage" Relationship="Self.FK_FilterStorage_Description" FromRole="Description" ToRole="FilterStorage" />
+        </EntityType>
+        <EntityType Name="FileAccessLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="FileInfo" Relationship="Self.FK_FileInfo_FileAccessLevel" FromRole="FileAccessLevel" ToRole="FileInfo" />
         </EntityType>
         <EntityType Name="FileInfo">
           <Key>
@@ -288,10 +321,13 @@
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Expression" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="AccessLevelId" Type="Int32" Nullable="false" />
+          <Property Name="ShareLink" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_FileInfo_Category" FromRole="FileInfo" ToRole="Category" />
-          <NavigationProperty Name="Descriptions" Relationship="Self.FK_Description_FileInfo" FromRole="FileInfo" ToRole="Description" />
-          <NavigationProperty Name="FilterStorages" Relationship="Self.FK_FilterStorage_FileInfo" FromRole="FileInfo" ToRole="FilterStorage" />
-          <NavigationProperty Name="StorageHistories" Relationship="Self.FK_StorageHistory_FileInfo" FromRole="FileInfo" ToRole="StorageHistory" />
+          <NavigationProperty Name="Description1" Relationship="Self.FK_Description_FileInfo" FromRole="FileInfo" ToRole="Description" />
+          <NavigationProperty Name="FileAccessLevel" Relationship="Self.FK_FileInfo_FileAccessLevel" FromRole="FileInfo" ToRole="FileAccessLevel" />
+          <NavigationProperty Name="FilterStorage" Relationship="Self.FK_FilterStorage_FileInfo" FromRole="FileInfo" ToRole="FilterStorage" />
+          <NavigationProperty Name="UserFile" Relationship="Self.FK_StorageHistory_FileInfo" FromRole="FileInfo" ToRole="UserFile" />
         </EntityType>
         <EntityType Name="FilterStorage">
           <Key>
@@ -314,31 +350,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
-        <EntityType Name="StatusUpload">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateUpload" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="StorageHistories" Relationship="Self.FK_StorageHistory_StatusUpload" FromRole="StatusUpload" ToRole="StorageHistory" />
-        </EntityType>
-        <EntityType Name="StorageHistory">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="FileInfoId" Type="Int32" Nullable="false" />
-          <Property Name="DateUpload" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FileInfo" Relationship="Self.FK_StorageHistory_FileInfo" FromRole="StorageHistory" ToRole="FileInfo" />
-          <NavigationProperty Name="StatusUpload" Relationship="Self.FK_StorageHistory_StatusUpload" FromRole="StorageHistory" ToRole="StatusUpload" />
-          <NavigationProperty Name="User" Relationship="Self.FK_StorageHistory_User" FromRole="StorageHistory" ToRole="User" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
+        <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
@@ -353,8 +367,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="FilterStorages" Relationship="Self.FK_FilterStorage_TextSearching" FromRole="TextSearching" ToRole="FilterStorage" />
+          <Property Name="Text" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="FilterStorage" Relationship="Self.FK_FilterStorage_TextSearching" FromRole="TextSearching" ToRole="FilterStorage" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -368,7 +382,32 @@
           <Property Name="Registered" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
-          <NavigationProperty Name="StorageHistories" Relationship="Self.FK_StorageHistory_User" FromRole="User" ToRole="StorageHistory" />
+          <NavigationProperty Name="UserFile" Relationship="Self.FK_StorageHistory_User" FromRole="User" ToRole="UserFile" />
+        </EntityType>
+        <EntityType Name="UserFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="FileInfoId" Type="Int32" Nullable="false" />
+          <Property Name="DateUpload" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="FileInfo" Relationship="Self.FK_StorageHistory_FileInfo" FromRole="UserFile" ToRole="FileInfo" />
+          <NavigationProperty Name="User" Relationship="Self.FK_StorageHistory_User" FromRole="UserFile" ToRole="User" />
+        </EntityType>
+        <EntityType Name="GuestFileInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="Created" />
+            <PropertyRef Name="ShareLink" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ShareLink" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <Association Name="FK_FileInfo_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -406,6 +445,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FileInfo_FileAccessLevel">
+          <End Role="FileAccessLevel" Type="Self.FileAccessLevel" Multiplicity="1" />
+          <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileAccessLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FileInfo">
+              <PropertyRef Name="AccessLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FilterStorage_FileInfo">
           <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="1" />
           <End Role="FilterStorage" Type="Self.FilterStorage" Multiplicity="*" />
@@ -420,12 +471,12 @@
         </Association>
         <Association Name="FK_StorageHistory_FileInfo">
           <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="1" />
-          <End Role="StorageHistory" Type="Self.StorageHistory" Multiplicity="*" />
+          <End Role="UserFile" Type="Self.UserFile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FileInfo">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="StorageHistory">
+            <Dependent Role="UserFile">
               <PropertyRef Name="FileInfoId" />
             </Dependent>
           </ReferentialConstraint>
@@ -454,76 +505,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StorageHistory_StatusUpload">
-          <End Role="StatusUpload" Type="Self.StatusUpload" Multiplicity="1" />
-          <End Role="StorageHistory" Type="Self.StorageHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StatusUpload">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="StorageHistory">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_StorageHistory_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="StorageHistory" Type="Self.StorageHistory" Multiplicity="*" />
+          <End Role="UserFile" Type="Self.UserFile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="StorageHistory">
+            <Dependent Role="UserFile">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ElectronicDocumentArchiveEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Descriptions" EntityType="Self.Description" />
-          <EntitySet Name="FileInfoes" EntityType="Self.FileInfo" />
-          <EntitySet Name="FilterStorages" EntityType="Self.FilterStorage" />
-          <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="StatusUploads" EntityType="Self.StatusUpload" />
-          <EntitySet Name="StorageHistories" EntityType="Self.StorageHistory" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="TextSearchings" EntityType="Self.TextSearching" />
-          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Description" EntityType="Self.Description" />
+          <EntitySet Name="FileAccessLevel" EntityType="Self.FileAccessLevel" />
+          <EntitySet Name="FileInfo" EntityType="Self.FileInfo" />
+          <EntitySet Name="FilterStorage" EntityType="Self.FilterStorage" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TextSearching" EntityType="Self.TextSearching" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserFile" EntityType="Self.UserFile" />
+          <EntitySet Name="GuestFileInfo" EntityType="Self.GuestFileInfo" />
           <AssociationSet Name="FK_FileInfo_Category" Association="Self.FK_FileInfo_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="FileInfo" EntitySet="FileInfoes" />
+            <End Role="Category" EntitySet="Category" />
+            <End Role="FileInfo" EntitySet="FileInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_Description_FileInfo" Association="Self.FK_Description_FileInfo">
-            <End Role="FileInfo" EntitySet="FileInfoes" />
-            <End Role="Description" EntitySet="Descriptions" />
+            <End Role="FileInfo" EntitySet="FileInfo" />
+            <End Role="Description" EntitySet="Description" />
           </AssociationSet>
           <AssociationSet Name="FK_FilterStorage_Description" Association="Self.FK_FilterStorage_Description">
-            <End Role="Description" EntitySet="Descriptions" />
-            <End Role="FilterStorage" EntitySet="FilterStorages" />
+            <End Role="Description" EntitySet="Description" />
+            <End Role="FilterStorage" EntitySet="FilterStorage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileInfo_FileAccessLevel" Association="Self.FK_FileInfo_FileAccessLevel">
+            <End Role="FileAccessLevel" EntitySet="FileAccessLevel" />
+            <End Role="FileInfo" EntitySet="FileInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_FilterStorage_FileInfo" Association="Self.FK_FilterStorage_FileInfo">
-            <End Role="FileInfo" EntitySet="FileInfoes" />
-            <End Role="FilterStorage" EntitySet="FilterStorages" />
+            <End Role="FileInfo" EntitySet="FileInfo" />
+            <End Role="FilterStorage" EntitySet="FilterStorage" />
           </AssociationSet>
           <AssociationSet Name="FK_StorageHistory_FileInfo" Association="Self.FK_StorageHistory_FileInfo">
-            <End Role="FileInfo" EntitySet="FileInfoes" />
-            <End Role="StorageHistory" EntitySet="StorageHistories" />
+            <End Role="FileInfo" EntitySet="FileInfo" />
+            <End Role="UserFile" EntitySet="UserFile" />
           </AssociationSet>
           <AssociationSet Name="FK_FilterStorage_TextSearching" Association="Self.FK_FilterStorage_TextSearching">
-            <End Role="TextSearching" EntitySet="TextSearchings" />
-            <End Role="FilterStorage" EntitySet="FilterStorages" />
+            <End Role="TextSearching" EntitySet="TextSearching" />
+            <End Role="FilterStorage" EntitySet="FilterStorage" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StorageHistory_StatusUpload" Association="Self.FK_StorageHistory_StatusUpload">
-            <End Role="StatusUpload" EntitySet="StatusUploads" />
-            <End Role="StorageHistory" EntitySet="StorageHistories" />
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_StorageHistory_User" Association="Self.FK_StorageHistory_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="StorageHistory" EntitySet="StorageHistories" />
+            <End Role="User" EntitySet="User" />
+            <End Role="UserFile" EntitySet="UserFile" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -532,7 +572,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище ElectronicDocumentArchiveManagementModelContainer" CdmEntityContainer="ElectronicDocumentArchiveEntities">
-          <EntitySetMapping Name="Categories">
+          <EntitySetMapping Name="Category">
             <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -540,7 +580,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Descriptions">
+          <EntitySetMapping Name="Description">
             <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.Description">
               <MappingFragment StoreEntitySet="Description">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -549,7 +589,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FileInfoes">
+          <EntitySetMapping Name="FileAccessLevel">
+            <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.FileAccessLevel">
+              <MappingFragment StoreEntitySet="FileAccessLevel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileInfo">
             <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.FileInfo">
               <MappingFragment StoreEntitySet="FileInfo">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -559,10 +607,12 @@
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Expression" ColumnName="Expression" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="AccessLevelId" ColumnName="AccessLevelId" />
+                <ScalarProperty Name="ShareLink" ColumnName="ShareLink" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FilterStorages">
+          <EntitySetMapping Name="FilterStorage">
             <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.FilterStorage">
               <MappingFragment StoreEntitySet="FilterStorage">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -575,7 +625,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
+          <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -583,28 +633,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="StatusUploads">
-            <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.StatusUpload">
-              <MappingFragment StoreEntitySet="StatusUpload">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="DateUpload" ColumnName="DateUpload" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StorageHistories">
-            <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.StorageHistory">
-              <MappingFragment StoreEntitySet="StorageHistory">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="FileInfoId" ColumnName="FileInfoId" />
-                <ScalarProperty Name="DateUpload" ColumnName="DateUpload" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.sysdiagram">
+            <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -614,7 +644,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TextSearchings">
+          <EntitySetMapping Name="TextSearching">
             <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.TextSearching">
               <MappingFragment StoreEntitySet="TextSearching">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -622,7 +652,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
+          <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -632,6 +662,27 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Registered" ColumnName="Registered" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserFile">
+            <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.UserFile">
+              <MappingFragment StoreEntitySet="UserFile">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FileInfoId" ColumnName="FileInfoId" />
+                <ScalarProperty Name="DateUpload" ColumnName="DateUpload" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuestFileInfo">
+            <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.GuestFileInfo">
+              <MappingFragment StoreEntitySet="GuestFileInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ShareLink" ColumnName="ShareLink" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -649,7 +700,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />

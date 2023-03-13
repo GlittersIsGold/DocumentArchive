@@ -14,15 +14,16 @@
             <RowDefinition Height="206*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-            
+
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+
             <StackPanel Grid.Column="0">
                 <TextBlock Margin="0">
-                    <Run Text="Вы зашли как гость"/>
+                    <Run Text="Вы зашли как гость" FontSize="24"/>
                 </TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="1">
@@ -34,109 +35,137 @@
             </StackPanel>
         </Grid>
 
-        <StackPanel Grid.Row="1">
-            <StackPanel Orientation="Horizontal">
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <TextBlock Text="Поиск"/>
                 <CheckBox Margin="10, 4, 0, 0"/>
                 <TextBlock Text="Искать по содержимому"/>
             </StackPanel>
-            
-            <TextBox 
-                Name="TbSearchQuery"
-                Height="24"
-                />
 
-            <Grid>
+            <Grid Grid.Row="1">
+                <TextBox
+                    Name="TbSearchQuery"
+                    Height="25"/>
+            </Grid>
+
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="30*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Button 
                     Name="BtnNextStrings"
                     Click="BtnNextStrings_Click"
                     Grid.Column="0"
-                    Margin="0"
+                    Margin="2.5, 0, 0, 0"
                     Content="&lt;"/>
                 <ListBox 
-                Name="LbPinnedFiles"
-                Grid.Column="1"
-                Height="60"
-                Margin="0"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel 
-                            Orientation="Horizontal" 
-                            IsItemsHost="True">
-                        </StackPanel>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            
-                        </StackPanel>
-                    </DataTemplate>        
-                </ListBox.ItemTemplate>
-            </ListBox>
+                    Name="LbPinnedFiles"
+                    Grid.Column="1"
+                    Margin="0"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" IsItemsHost="True">
+                            </StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="-5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+                                    <Image Source="{Binding DocImg}" Width="52" Height="52"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Margin="0">
+                                        <Run Text="{Binding Title}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Grid.Row="1">
+                                    <TextBlock Margin="0">
+                                        <Run Text="{Binding Created, StringFormat=D, ConverterCulture=ru-Ru}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <Button 
                     Name="BtnPreviousStrings"
                     Click="BtnNextStrings_Click"
                     Grid.Column="2"
-                    Margin="0"
+                    Margin="0, 0, 2.5, 0"
                     Content="&gt;"/>
             </Grid>
-            
-            <DataGrid 
-                Name="DgPublicFiles"
-                AutoGenerateColumns="False"
-                IsReadOnly="True"
-                Focusable="False"
-                Grid.Row="1">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="" Width="0.5*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding }"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    
-                    <DataGridTextColumn 
-                        Header="Имя" 
-                        Binding="{Binding }"
-                        Width="*"/>
-                    <DataGridTextColumn 
-                        Header="Описание" 
-                        Binding="{Binding }" 
-                        Width="2*"/>
-                    <DataGridTextColumn 
-                        Header="Изменён" 
-                        Binding="{Binding }" 
-                        Width="2*"/>
-                    <DataGridTextColumn 
-                        Header="Источник" 
-                        Binding="{Binding }" 
-                        Width="2*"/>
 
-                    <DataGridTemplateColumn Header="" Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <Button 
-                                        Name="BtnOpenReader"
-                                        Click="BtnOpenReader_Click"
-                                        Content="Открыть"
-                                        />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+            <Grid Grid.Row="3">
+                <DataGrid
+                    Name="DgPublicFiles"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True"
+                    Focusable="False">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="" Width="0.5*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding DocImg}" Width="32" Height="32"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn 
+                                Header="Имя" 
+                                Binding="{Binding Title}"
+                                Width="2*"/>
+                        <DataGridTextColumn 
+                                Header="Описание" 
+                                Binding="{Binding Description}" 
+                                Width="*"/>
+                        <DataGridTextColumn 
+                                Header="Добавлен" 
+                                Binding="{Binding Created, StringFormat=D, ConverterCulture=ru-Ru}" 
+                                Width="*"/>
+                        <DataGridTextColumn 
+                                Header="Источник" 
+                                Binding="{Binding ShareLink}" 
+                                Width="2*"/>
+                        <DataGridTemplateColumn Header="" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Button 
+                                            Name="BtnOpenReader"
+                                            Click="BtnOpenReader_Click"
+                                            Content="Открыть"
+                                            />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+        </Grid>
 
         <Grid Grid.Row="2" Margin="0" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
@@ -154,5 +183,6 @@
                 <Run Name="RnLastUpdate" Text=""/>
             </TextBlock>
         </Grid>
+
     </Grid>
 </Page>

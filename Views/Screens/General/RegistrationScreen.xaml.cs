@@ -1,6 +1,6 @@
 ﻿using DocumentArchive.Controller.Connection;
 using DocumentArchive.Controller.Navigation;
-using DocumentArchive.Model.ADO;
+using DocumentArchive.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,9 +41,9 @@ namespace DocumentArchive.Views.Screens.General
 			{
 				try
 				{
-					List<Model.ADO.User> ExistingUsers = DataAccess.EDAEntities.Users.ToList();
+					List<User> ExistingUsers = DataAccess.EDAEntities.User.ToList();
 
-					User user = new User()
+                    User user = new User()
 					{
 						Login = TextBoxLogin.Text,
 						Password = PasswordBoxPassword.Password,
@@ -64,7 +64,7 @@ namespace DocumentArchive.Views.Screens.General
 					{
 						try
 						{
-							DataAccess.EDAEntities.Users.Add(user);
+							DataAccess.EDAEntities.User.Add(user);
 							DataAccess.EDAEntities.SaveChanges();
 							MessageBox.Show("Данные отправлены, дождитесь подтверждения");
 						}

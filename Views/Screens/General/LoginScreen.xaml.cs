@@ -18,7 +18,7 @@ namespace DocumentArchive.Views.Screens.General
 		public LoginScreen()
 		{
 			InitializeComponent();
-			DataAccess.EDAEntities = new Model.ADO.ElectronicDocumentArchiveEntities();
+			DataAccess.EDAEntities = new Model.ElectronicDocumentArchiveEntities();
 
 			/// Исправить на binding -https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/application-settings-architecture?view=netframeworkdesktop-4.8
 			if (Properties.Settings.Default.IsChbClicked == true)
@@ -34,7 +34,7 @@ namespace DocumentArchive.Views.Screens.General
 			try
 			{
 				var UserDataToLogin = 
-					DataAccess.EDAEntities.Users.FirstOrDefault(
+					DataAccess.EDAEntities.User.FirstOrDefault(
 						u => u.Login == TextBoxLogin.Text && u.Password == PasswordBoxPassword.Password
 						);
 
