@@ -1,4 +1,4 @@
-﻿using DocumentArchive.Model.ADO;
+﻿using DocumentArchive.Model;
 
 namespace DocumentArchive.Controller.Connection
 {

@@ -14,6 +14,21 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -74,53 +89,56 @@
     <Compile Include="Controller\Connection\DataAccess.cs" />
     <Compile Include="Controller\Interface\IGetFile.cs" />
     <Compile Include="Controller\Navigation\FrameTransition.cs" />
-    <Compile Include="Model\ADO\Category.cs">
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
+    <Compile Include="Model\Category.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ADO\Description.cs">
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ADO\DocumentArchiveModel.Context.cs">
+    <Compile Include="Model\DbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DocumentArchiveModel.Context.tt</DependentUpon>
+      <DependentUpon>DbModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ADO\DocumentArchiveModel.cs">
+    <Compile Include="Model\DbModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ADO\DocumentArchiveModel.Designer.cs">
+    <Compile Include="Model\DbModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DocumentArchiveModel.edmx</DependentUpon>
+      <DependentUpon>DbModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Model\ADO\FileInfo.cs">
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
+    <Compile Include="Model\Description.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ADO\FilterStorage.cs">
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
+    <Compile Include="Model\FileAccessLevel.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ADO\Role.cs">
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ADO\StatusUpload.cs">
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ADO\StorageHistory.cs">
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ADO\sysdiagram.cs">
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ADO\TextSearching.cs">
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ADO\User.cs">
-      <DependentUpon>DocumentArchiveModel.tt</DependentUpon>
+    <Compile Include="Model\FileInfo.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\FileParamsCollector.cs" />
+    <Compile Include="Model\FilterStorage.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\FreshUserBuilder.cs" />
+    <Compile Include="Model\GuestFileInfo.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Role.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sysdiagrams.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TextSearching.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\User.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\UserFile.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\UserInfo.cs" />
     <Compile Include="Views\Pages\Alert\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
@@ -237,12 +255,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Model\ADO\DocumentArchiveModel.edmx">
+    <EntityDeploy Include="Model\DbModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DocumentArchiveModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>DbModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model\ADO\DocumentArchiveModel.edmx.diagram">
-      <DependentUpon>DocumentArchiveModel.edmx</DependentUpon>
+    <None Include="Model\DbModel.edmx.diagram">
+      <DependentUpon>DbModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -255,16 +273,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\ADO\DocumentArchiveModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DocumentArchiveModel.edmx</DependentUpon>
-      <LastGenOutput>DocumentArchiveModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\ADO\DocumentArchiveModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DocumentArchiveModel.edmx</DependentUpon>
-      <LastGenOutput>DocumentArchiveModel.cs</LastGenOutput>
-    </Content>
     <Resource Include="Resources\Icons\archiveLogo.ico" />
     <Resource Include="Resources\Icons\archiveLogo.png" />
   </ItemGroup>
@@ -273,6 +281,33 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\Agregation\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\DbModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbModel.edmx</DependentUpon>
+      <LastGenOutput>DbModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\DbModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbModel.edmx</DependentUpon>
+      <LastGenOutput>DbModel.cs</LastGenOutput>
+    </Content>
+    <Resource Include="Resources\docxLogo.png" />
+    <Resource Include="Resources\pdfLogo.png" />
+    <Resource Include="Resources\pptxLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

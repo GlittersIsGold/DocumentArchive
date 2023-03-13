@@ -2,7 +2,6 @@
 
 namespace DocumentArchive.Model
 {
-
 	internal class FileParamsCollector
 	{
 		public string Title { get; set; }

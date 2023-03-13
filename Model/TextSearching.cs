@@ -7,17 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DocumentArchive.Model.ADO
+namespace DocumentArchive.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class TextSearching
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TextSearching()
+        {
+            this.FilterStorage = new HashSet<FilterStorage>();
+        }
+    
+        public int Id { get; set; }
+        public string Text { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FilterStorage> FilterStorage { get; set; }
     }
 }

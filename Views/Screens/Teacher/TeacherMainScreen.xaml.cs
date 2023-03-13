@@ -1,5 +1,4 @@
 ﻿using DocumentArchive.Controller.Connection;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
@@ -22,9 +21,9 @@ namespace DocumentArchive.Views.Screens.Teacher
 		string[] FilePaths = new string[10];
 
 		/// <summary>
-		/// Очередь с подкотовленными файлами к сериализации
+		/// Очередь с подготовленными файлами к сериализации
 		/// </summary>
-		Queue<Model.ADO.FileInfo> FilesToUpload = new Queue<Model.ADO.FileInfo>();
+		Queue<Model.FileInfo> FilesToUpload = new Queue<Model.FileInfo>();
 
 		public TeacherMainScreen()
 		{
@@ -51,57 +50,63 @@ namespace DocumentArchive.Views.Screens.Teacher
 			if (IsFilesPicked == DialogResult.OK)
 			{
 				FilePaths = dialogScreen.FileNames;
-			}
 
-			foreach (var filePointer in FilePaths)
-			{
-				Model.ADO.FileInfo file = new Model.ADO.FileInfo()
-				{
-					Title = Path.GetFileName(filePointer),
-					Description = File.GetAttributes(filePointer).ToString(),
-					Size = new FileInfo(filePointer).Length,
-					Created = File.GetCreationTime(filePointer),
-					Expression = File.ReadAllBytes(filePointer),
-					CategoryId = 1,
-                };
-
+				/// нужно добавить проверку по весу и количеству
 				try
 				{
-					DataAccess.EDAEntities.FileInfoes.Add(file);
-					await DataAccess.EDAEntities.SaveChangesAsync();
+					foreach (var filePointer in FilePaths)
+					{
 
-					FilesToUpload.Enqueue(file);
-                    System.Windows.MessageBox.Show("Файл(ы) отправлены");
+						Model.FileInfo file = new Model.FileInfo()
+						{
+							Title = Path.GetFileName(filePointer),
+							Description = File.GetAttributes(filePointer).ToString(),
+							Size = new FileInfo(filePointer).Length,
+							Created = File.GetCreationTime(filePointer),
+							Expression = File.ReadAllBytes(filePointer),
+							CategoryId = 1,
+							AccessLevelId = 1,
+							ShareLink = "нет",
+						};
+
+						DataAccess.EDAEntities.FileInfo.Add(file);
+						await DataAccess.EDAEntities.SaveChangesAsync();
+					}
+
+					System.Windows.MessageBox.Show("Файл(ы) успешно загружены");
 				}
-				catch (Exception ex) 
+				catch (System.Exception ex)
 				{
-                    System.Windows.MessageBox.Show("Возникла ошибка\nсмотрите подробнее во внутреннем исключении");
-					throw new Exception(ex.Message);
+					System.Windows.MessageBox.Show("Произошла ошибка при обработке файлов\nсмотрите информацию во внутреннем исключении");
+					throw new System.Exception(ex.Message.ToString());
 				}
+
 			}
-
-			/// Отправка на API
-			//foreach (var file in FilesToUpload)
-			//{
-				
-			//	var json = JsonConvert.SerializeObject(file);
-
-			//	var Data = new StringContent(json, Encoding.UTF8, "application/json");
-
-			//	string url = "https://httpbin.org/post";
-
-			//	HttpClient httpClient = new HttpClient();
-			
-			//	if (url != null)
-			//	{
-			//		var response = await httpClient.PostAsync(url, Data);
-
-			//		var result = await response.Content.ReadAsStringAsync();
-			//		System.Windows.MessageBox.Show(result);
-			//	}
-			//}
-
 		}
+
+		/// <summary>
+		/// Сериализация json и отправка на API
+		/// </summary>
+		//foreach (var file in FilesToUpload)
+		//{
+
+		//	var json = JsonConvert.SerializeObject(file);
+
+		//	var Data = new StringContent(json, Encoding.UTF8, "application/json");
+
+		//	string url = "https://httpbin.org/post";
+
+		//	HttpClient httpClient = new HttpClient();
+
+		//	if (url != null)
+		//	{
+		//		var response = await httpClient.PostAsync(url, Data);
+
+		//		var result = await response.Content.ReadAsStringAsync();
+		//		System.Windows.MessageBox.Show(result);
+		//	}
+		//}
+
 
 		private void BtnNextStrings_Click(object sender, RoutedEventArgs e)
 		{

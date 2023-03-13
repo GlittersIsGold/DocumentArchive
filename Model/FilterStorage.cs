@@ -7,23 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DocumentArchive.Model.ADO
+namespace DocumentArchive.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class FilterStorage
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
-        {
-            this.FileInfoes = new HashSet<FileInfo>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public int FileInfoId { get; set; }
+        public string Keyword { get; set; }
+        public int DescriptionId { get; set; }
+        public int CategoryId { get; set; }
+        public int TextSearchingId { get; set; }
+        public int IndexSearching { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FileInfo> FileInfoes { get; set; }
+        public virtual Description Description { get; set; }
+        public virtual FileInfo FileInfo { get; set; }
+        public virtual TextSearching TextSearching { get; set; }
     }
 }

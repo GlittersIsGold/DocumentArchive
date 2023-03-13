@@ -7,23 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DocumentArchive.Model.ADO
+namespace DocumentArchive.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class Description
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
+        public Description()
         {
-            this.Users = new HashSet<User>();
+            this.FilterStorage = new HashSet<FilterStorage>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Information { get; set; }
+        public int FileInfoId { get; set; }
     
+        public virtual FileInfo FileInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<FilterStorage> FilterStorage { get; set; }
     }
 }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DocumentArchive.Model.ADO
+namespace DocumentArchive.Model
 {
     using System;
     using System.Data.Entity;
@@ -25,15 +25,16 @@ namespace DocumentArchive.Model.ADO
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Description> Descriptions { get; set; }
-        public virtual DbSet<FileInfo> FileInfoes { get; set; }
-        public virtual DbSet<FilterStorage> FilterStorages { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<StatusUpload> StatusUploads { get; set; }
-        public virtual DbSet<StorageHistory> StorageHistories { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<TextSearching> TextSearchings { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Description> Description { get; set; }
+        public virtual DbSet<FileAccessLevel> FileAccessLevel { get; set; }
+        public virtual DbSet<FileInfo> FileInfo { get; set; }
+        public virtual DbSet<FilterStorage> FilterStorage { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<TextSearching> TextSearching { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserFile> UserFile { get; set; }
+        public virtual DbSet<GuestFileInfo> GuestFileInfo { get; set; }
     }
 }

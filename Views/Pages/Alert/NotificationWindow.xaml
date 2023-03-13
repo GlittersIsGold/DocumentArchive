@@ -9,25 +9,32 @@
         ResizeMode="NoResize"
         Title="Уведомление" Height="220.5" Width="392">
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
         <StackPanel Grid.Row="0">
             <TextBlock>
-                <Run Text="Header"/>
+                <Run Name="RnHeader" Text="Header"/>
             </TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="1">
             <TextBlock>
-                <Run Text="Body"/>
+                <Run Name="RnBody" Text="Body"/>
             </TextBlock>
         </StackPanel>
-        
+
+        <StackPanel Grid.Row="2">
+            <TextBlock>
+                <Run Name="RnFooter" Text="Footer"/>
+            </TextBlock>
+        </StackPanel>
+
         <StackPanel Grid.Row="3">
             <Button Content="Ок"/>
         </StackPanel>

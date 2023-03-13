@@ -7,24 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DocumentArchive.Model.ADO
+namespace DocumentArchive.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class StatusUpload
+    public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StatusUpload()
+        public Role()
         {
-            this.StorageHistories = new HashSet<StorageHistory>();
+            this.User = new HashSet<User>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public int DateUpload { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StorageHistory> StorageHistories { get; set; }
+        public virtual ICollection<User> User { get; set; }
     }
 }

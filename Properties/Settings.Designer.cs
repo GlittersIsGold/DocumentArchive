@@ -29,6 +29,6 @@ namespace DocumentArchive.Properties
 			}
 		}
 
-		public bool? IsChbChecked { get; internal set; }
+		public bool? IsChbClicked { get; internal set; }
 	}
 }

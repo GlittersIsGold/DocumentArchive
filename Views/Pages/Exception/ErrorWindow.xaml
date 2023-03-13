@@ -5,28 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocumentArchive.View.Page.Exception"
         mc:Ignorable="d"
+        Title="Уведомление" 
         ResizeMode="NoResize"
-        Title="Ошибка" Height="168.75" Width="300">
+        WindowStartupLocation="CenterScreen"
+        Height="150" Width="300">
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2.5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        
         <StackPanel Grid.Row="0">
             <TextBlock>
-                <Run Text="Header"/>
+                <Run Name="RnHeader" Text="Header"/>
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock>
+                <Run Name="RnBody" Text="Body"/>
             </TextBlock>
         </StackPanel>
         
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="2">
             <TextBlock>
-                <Run Text="ErrorInformation"/>
+                <Run Name="RnFooter" Text="Footer"/>
             </TextBlock>
         </StackPanel>
-        <StackPanel Grid.Row="2">
+
+        <StackPanel Grid.Row="3">
             <Button Content="Ок"/>
         </StackPanel>
     </Grid>
