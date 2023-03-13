@@ -57,18 +57,36 @@ namespace DocumentArchive.Views.Screens.Guest
 
 		private void BtnOpenReader_Click(object sender, RoutedEventArgs e)
 		{
-
         }
 
-		private void BtnNextStrings_Click(object sender, RoutedEventArgs e)
-		{
 
-        }
 
 		private void BtnLogin_Click(object sender, RoutedEventArgs e)
 		{
 			new MainWindow().Show();
 			Window.GetWindow(this).Close();
 		}
-    }
+
+		private void BtnNextLbItem_Click(object sender, RoutedEventArgs e)
+		{
+			int LbItems = LbPinnedFiles.Items.Count;
+			if (LbPinnedFiles.SelectedIndex < LbItems - 1)
+			{
+				LbPinnedFiles.SelectedIndex++;
+				LbPinnedFiles.Focus();
+				LbPinnedFiles.ScrollIntoView(LbPinnedFiles.SelectedItem);
+			}
+		}
+
+		private void BtnPrevLbItem_Click(object sender, RoutedEventArgs e)
+		{
+			int LbIndex = LbPinnedFiles.SelectedIndex;
+			if (LbIndex > 0)
+			{
+				LbPinnedFiles.SelectedIndex--;
+				LbPinnedFiles.Focus();
+				LbPinnedFiles.ScrollIntoView(LbPinnedFiles.SelectedItem);
+			}
+		}
+	}
 }
