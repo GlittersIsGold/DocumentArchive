@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Хранилище ElectronicDocumentArchiveManagementModelContainer" CdmEntityContainer="ElectronicDocumentArchiveEntities">
+  <EntityContainerMapping StorageEntityContainer="Хранилище ElectronicDocumentArchiveModelContainer" CdmEntityContainer="ElectronicDocumentArchiveEntities">
     <EntitySetMapping Name="Category">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.Category">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.Category">
         <MappingFragment StoreEntitySet="Category">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -10,7 +10,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Description">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.Description">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.Description">
         <MappingFragment StoreEntitySet="Description">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Information" ColumnName="Information" />
@@ -19,7 +19,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="FileAccessLevel">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.FileAccessLevel">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.FileAccessLevel">
         <MappingFragment StoreEntitySet="FileAccessLevel">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -27,7 +27,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="FileInfo">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.FileInfo">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.FileInfo">
         <MappingFragment StoreEntitySet="FileInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
@@ -42,7 +42,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="FilterStorage">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.FilterStorage">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.FilterStorage">
         <MappingFragment StoreEntitySet="FilterStorage">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FileInfoId" ColumnName="FileInfoId" />
@@ -55,7 +55,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Role">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.Role">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.Role">
         <MappingFragment StoreEntitySet="Role">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -63,7 +63,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.sysdiagrams">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.sysdiagrams">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -74,7 +74,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TextSearching">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.TextSearching">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.TextSearching">
         <MappingFragment StoreEntitySet="TextSearching">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Text" ColumnName="Text" />
@@ -82,7 +82,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="User">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.User">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.User">
         <MappingFragment StoreEntitySet="User">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Login" ColumnName="Login" />
@@ -95,7 +95,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UserFile">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.UserFile">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.UserFile">
         <MappingFragment StoreEntitySet="UserFile">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -105,7 +105,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="GuestFileInfo">
-      <EntityTypeMapping TypeName="ElectronicDocumentArchiveManagementModel.GuestFileInfo">
+      <EntityTypeMapping TypeName="ElectronicDocumentArchiveModel.GuestFileInfo">
         <MappingFragment StoreEntitySet="GuestFileInfo">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />

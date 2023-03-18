@@ -20,23 +20,23 @@ namespace DocumentArchive.Model
         public System.DateTime Created { get; set; }
         public string ShareLink { get; set; }
 
-        public string DocImg
-        {
-            get
-            {
-                if (Title.EndsWith(".pdf"))
-                {
-                    return @"/Resources/pdfLogo.png";
-                }
-                else if (Title.EndsWith(".docx"))
-                {
-                    return @"/Resources/docxLogo.png";
-                }
-                else
-                {
-                    return string.Empty;
-                }
-            }
-        }
-    }
+		public string DocImg
+		{
+			get
+			{
+				if (Title.EndsWith(".pdf"))
+				{
+					return @"/Resources/pdfLogo.png";
+				}
+				else if (Title.EndsWith(".docx"))
+				{
+					return @"/Resources/docxLogo.png";
+				}
+				else
+				{
+					return string.Empty;
+				}
+			}
+		}
+	}
 }

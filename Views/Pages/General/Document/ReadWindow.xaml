@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DocumentArchive.View.Page.General.Document"
         mc:Ignorable="d"
-        Title="Чтение документа" Height="450" Width="800">
+        Title="Чтение документа" Height="675" Width="1200">
     <Grid>
-        
+        <FlowDocumentReader Name="FDReader" ViewingMode="TwoPage"/>
     </Grid>
 </Window>

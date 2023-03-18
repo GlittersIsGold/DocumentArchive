@@ -1,5 +1,6 @@
 ﻿using DocumentArchive.Controller.Connection;
 using DocumentArchive.Model;
+using DocumentArchive.View.Page.General.Document;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,14 +58,13 @@ namespace DocumentArchive.Views.Screens.Guest
 			}
 
 			DispatcherTimer dt = new DispatcherTimer();
-			dt.Tick += new EventHandler(dt_Tick);
+			dt.Tick += new EventHandler(Dt_Tick);
 			dt.Interval = new TimeSpan(0, 0, 1);
 			dt.Start();
 
-			/// всё по классам
 		}
 
-		private void dt_Tick(object sender, EventArgs e)
+		private void Dt_Tick(object sender, EventArgs e)
 		{
 			try
 			{
@@ -105,7 +105,19 @@ namespace DocumentArchive.Views.Screens.Guest
 
 		private void BtnOpenReader_Click(object sender, RoutedEventArgs e)
 		{
+			try
+			{
+				GuestFileInfo selectedFile = ((FrameworkElement)sender).DataContext as GuestFileInfo;
 
+				FileInfo fileToUpload = DataAccess.EDAEntities.FileInfo.First( f => f.Title == selectedFile.Title);
+
+				new ReadWindow(fileToUpload).Show();
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Возникла ошибка\nсмотрите подробности во внутреннем исключении");
+				throw;
+			}
         }
 
 		private void BtnLogin_Click(object sender, RoutedEventArgs e)

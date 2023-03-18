@@ -4,27 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="85521e12cd634df8b6a920cafb7b2328" Name="Diagram1" ZoomLevel="158">
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.Category" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.Description" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.FileAccessLevel" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.FileInfo" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.FilterStorage" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.Role" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.TextSearching" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.User" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.UserFile" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveManagementModel.GuestFileInfo" Width="1.5" PointX="9.75" PointY="1.5" IsExpanded="true" />
-        <AssociationConnector Association="ElectronicDocumentArchiveManagementModel.FK_FileInfo_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="ElectronicDocumentArchiveManagementModel.FK_Description_FileInfo" ManuallyRouted="false" />
-        <AssociationConnector Association="ElectronicDocumentArchiveManagementModel.FK_FilterStorage_Description" ManuallyRouted="false" />
-        <AssociationConnector Association="ElectronicDocumentArchiveManagementModel.FK_FileInfo_FileAccessLevel" ManuallyRouted="false" />
-        <AssociationConnector Association="ElectronicDocumentArchiveManagementModel.FK_FilterStorage_FileInfo" ManuallyRouted="false" />
-        <AssociationConnector Association="ElectronicDocumentArchiveManagementModel.FK_StorageHistory_FileInfo" ManuallyRouted="false" />
-        <AssociationConnector Association="ElectronicDocumentArchiveManagementModel.FK_FilterStorage_TextSearching" ManuallyRouted="false" />
-        <AssociationConnector Association="ElectronicDocumentArchiveManagementModel.FK_User_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="ElectronicDocumentArchiveManagementModel.FK_StorageHistory_User" ManuallyRouted="false" />
+      <Diagram DiagramId="a8e0d46ef9cd4fbc8b334a4ea8fc29af" Name="Diagram1">
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.Category" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.Description" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.FileAccessLevel" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.FileInfo" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.FilterStorage" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.Role" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.TextSearching" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.User" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.UserFile" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.GuestFileInfo" Width="1.5" PointX="9.75" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="ElectronicDocumentArchiveModel.FK_FileInfo_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectronicDocumentArchiveModel.FK_Description_FileInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectronicDocumentArchiveModel.FK_FilterStorage_Description" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectronicDocumentArchiveModel.FK_FileInfo_FileAccessLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectronicDocumentArchiveModel.FK_FilterStorage_FileInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectronicDocumentArchiveModel.FK_StorageHistory_FileInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectronicDocumentArchiveModel.FK_FilterStorage_TextSearching" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectronicDocumentArchiveModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="ElectronicDocumentArchiveModel.FK_StorageHistory_User" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
