@@ -87,6 +87,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controller\Connection\DataAccess.cs" />
+    <Compile Include="Controller\Converter\DocxReader.cs" />
+    <Compile Include="Controller\Converter\DocxToFlowDocumentConverter.cs" />
     <Compile Include="Controller\Interface\IGetFile.cs" />
     <Compile Include="Controller\Navigation\FrameTransition.cs" />
     <Compile Include="Model\Category.cs">

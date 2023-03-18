@@ -1,7 +1,7 @@
-﻿using DocumentArchive.Model;
+﻿using DocumentArchive.Controller.Converter;
+using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Documents;
 
 namespace DocumentArchive.View.Page.General.Document
 {
@@ -12,14 +12,7 @@ namespace DocumentArchive.View.Page.General.Document
 	{
 		public ReadWindow(Model.FileInfo file)
 		{
-			InitializeComponent();
-			string path = @"/Resources/TempFiles/" + file.Title;
-			File.WriteAllBytes(path, file.Expression);
-			using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-			{
-				FlowDocument doc = new FlowDocument();	
-				FDReader.Document = doc;
-			}
+			InitializeComponent();	
 		}
 	}
 }
