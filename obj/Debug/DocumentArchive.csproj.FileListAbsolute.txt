@@ -266,3 +266,5 @@ C:\Users\shelb\Desktop\DocumentArch\obj\Debug\DocumentArchive.csproj.CoreCompile
 C:\Users\shelb\Desktop\DocumentArch\obj\Debug\DocumentArchive.csproj.CopyComplete
 C:\Users\shelb\Desktop\DocumentArch\obj\Debug\DocumentArchive.exe
 C:\Users\shelb\Desktop\DocumentArch\obj\Debug\DocumentArchive.pdb
+C:\Users\shelb\Desktop\Diploma\DocumentArchive\bin\Debug\SautinSoft.PdfFocus.dll
+C:\Users\shelb\Desktop\Diploma\DocumentArchive\bin\Debug\SautinSoft.PdfFocus.xml
