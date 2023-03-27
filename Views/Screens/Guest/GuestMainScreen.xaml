@@ -45,8 +45,6 @@
 
             <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0">
                 <TextBlock Margin="5, 0, 0, 0" Text="Поиск" FontSize="20"/>
-                <CheckBox Margin="15, 5, 5, 0" Width="15" Height="15"/>
-                <TextBlock Margin="0, 0, 0, 0" Text="искать по содержимому" FontSize="20"/>
             </StackPanel>
 
             <Grid Grid.Row="1">
@@ -83,6 +81,7 @@
                     Name="LbPinnedFiles"
                     Grid.Column="1"
                     Margin="0"
+                    PreviewMouseDown="LbPinnedFiles_PreviewMouseDown"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <ListBox.ItemsPanel>
@@ -133,7 +132,7 @@
                         <DataGridTemplateColumn Header="" Width="0.5*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding DocImg}" Width="32" Height="32"/>
+                                    <Image Source="{Binding DocImg}" Width="48" Height="48"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -156,12 +155,37 @@
                         <DataGridTemplateColumn Header="" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Button 
                                             Name="BtnOpenReader"
                                             Click="BtnOpenReader_Click"
-                                            Content="Открыть"
-                                            />
+                                            Width="52"
+                                            Height="52"
+                                            BorderThickness="0"
+                                            Background="Transparent">
+                                            <Image 
+                                                Source="/Resources/openFileIcon.png" 
+                                                Width="52" 
+                                                Height="52"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                />
+                                        </Button>
+                                        <Button 
+                                            Name="BtnDownloadFile"
+                                            Click="BtnDownloadFile_Click"
+                                            Width="52"
+                                            Height="52"
+                                            BorderThickness="0"
+                                            Background="Transparent">
+                                            <Image 
+                                                Source="/Resources/downloadFileIcon.png" 
+                                                Width="52" 
+                                                Height="52"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                />
+                                        </Button>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

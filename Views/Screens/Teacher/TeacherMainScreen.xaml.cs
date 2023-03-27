@@ -1,9 +1,14 @@
 ﻿using DocumentArchive.Controller.Connection;
+using DocumentArchive.Model;
+using DocumentArchive.View.Page.General.Document;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Threading;
 
 namespace DocumentArchive.Views.Screens.Teacher
 {
@@ -20,6 +25,9 @@ namespace DocumentArchive.Views.Screens.Teacher
 		/// </returns>
 		string[] FilePaths = new string[10];
 
+		private DateTime InfoUpdated;
+		private int numRequestCalls = 0;
+
 		/// <summary>
 		/// Очередь с подготовленными файлами к сериализации
 		/// </summary>
@@ -28,6 +36,85 @@ namespace DocumentArchive.Views.Screens.Teacher
 		public TeacherMainScreen()
 		{
 			InitializeComponent();
+
+			try
+			{
+
+				List<GuestFileInfo> DgData = DataAccess.EDAEntities.GuestFileInfo.ToList();
+
+				if (DgData != null)
+				{
+					if (DgData.Count > 0)
+					{
+						DgPublicFiles.ItemsSource = DgData;
+						LbPinnedFiles.ItemsSource = DgData;
+						InfoUpdated = DateTime.Now;
+						RnLastUpdate.Text = InfoUpdated.ToString("T");
+						RnCountFiles.Text = DgData.Count.ToString();
+						numRequestCalls++;
+					}
+					else
+					{
+						System.Windows.MessageBox.Show("Нет данных");
+					}
+				}
+				else
+				{
+                    System.Windows.MessageBox.Show("Не удалось получить данные");
+					throw new ArgumentNullException(nameof(DgData));
+				}
+
+			}
+			catch (Exception ex)
+			{
+				System.Windows.MessageBox.Show("Возникла ошибка\nсмотрите подробности во внутреннем исключении");
+				throw new Exception(ex.Message);
+			}
+
+			DispatcherTimer dt = new DispatcherTimer();
+			dt.Tick += new EventHandler(Dt_Tick);
+			dt.Interval = new TimeSpan(0, 0, 1);
+			dt.Start();
+
+		}
+
+		private void Dt_Tick(object sender, EventArgs e)
+		{
+			try
+			{
+
+				List<GuestFileInfo> DgData = DataAccess.EDAEntities.GuestFileInfo.ToList();
+
+				if (DgData != null)
+				{
+					if (DgData.Count > 0)
+					{
+						DgPublicFiles.ItemsSource = DgData;
+						LbPinnedFiles.ItemsSource = DgData;
+						InfoUpdated = DateTime.Now;
+						RnLastUpdate.Text = InfoUpdated.ToString("T");
+						RnCountFiles.Text = DgData.Count.ToString();
+						numRequestCalls++;
+					}
+					else
+					{
+						System.Windows.MessageBox.Show("Нет данных");
+					}
+				}
+				else
+				{
+					System.Windows.MessageBox.Show("Не удалось получить данные");
+					throw new ArgumentNullException(nameof(DgData));
+				}
+
+				GC.Collect(1, GCCollectionMode.Forced);
+				GC.WaitForPendingFinalizers();
+			}
+			catch (Exception ex)
+			{
+				System.Windows.MessageBox.Show("Возникла ошибка\nсмотрите подробности во внутреннем исключении");
+				throw new Exception(ex.Message);
+			}
 		}
 
 		/// <summary>
@@ -61,7 +148,7 @@ namespace DocumentArchive.Views.Screens.Teacher
 						{
 							Title = Path.GetFileName(filePointer),
 							Description = File.GetAttributes(filePointer).ToString(),
-							Size = new FileInfo(filePointer).Length,
+							Size = new System.IO.FileInfo(filePointer).Length,
 							Created = File.GetCreationTime(filePointer),
 							Expression = File.ReadAllBytes(filePointer),
 							CategoryId = 1,
@@ -84,41 +171,57 @@ namespace DocumentArchive.Views.Screens.Teacher
 			}
 		}
 
-		/// <summary>
-		/// Сериализация json и отправка на API
-		/// </summary>
-		//foreach (var file in FilesToUpload)
-		//{
-
-		//	var json = JsonConvert.SerializeObject(file);
-
-		//	var Data = new StringContent(json, Encoding.UTF8, "application/json");
-
-		//	string url = "https://httpbin.org/post";
-
-		//	HttpClient httpClient = new HttpClient();
-
-		//	if (url != null)
-		//	{
-		//		var response = await httpClient.PostAsync(url, Data);
-
-		//		var result = await response.Content.ReadAsStringAsync();
-		//		System.Windows.MessageBox.Show(result);
-		//	}
-		//}
-
-
-		private void BtnNextStrings_Click(object sender, RoutedEventArgs e)
+		private void BtnPrevLbItem_Click(object sender, RoutedEventArgs e)
 		{
-
+			int LbIndex = LbPinnedFiles.SelectedIndex;
+			if (LbIndex > 0)
+			{
+				LbPinnedFiles.SelectedIndex--;
+				LbPinnedFiles.Focus();
+				LbPinnedFiles.ScrollIntoView(LbPinnedFiles.SelectedItem);
+			}
 		}
 
-		private void BtnPreviousStrings_Click(object sender, RoutedEventArgs e)
+		private void BtnNextLbItem_Click(object sender, RoutedEventArgs e)
 		{
-
+			int LbItems = LbPinnedFiles.Items.Count;
+			if (LbPinnedFiles.SelectedIndex < LbItems - 1)
+			{
+				LbPinnedFiles.SelectedIndex++;
+				LbPinnedFiles.Focus();
+				LbPinnedFiles.ScrollIntoView(LbPinnedFiles.SelectedItem);
+			}
 		}
 
 		private void BtnOpenReader_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				GuestFileInfo selectedFile = ((FrameworkElement)sender).DataContext as GuestFileInfo;
+
+                Model.FileInfo fileToUpload = DataAccess.EDAEntities.FileInfo.First(f => f.Title == selectedFile.Title);
+
+				new ReadWindow(fileToUpload).Show();
+			}
+			catch (Exception)
+			{
+				System.Windows.MessageBox.Show("Возникла ошибка\nсмотрите подробности во внутреннем исключении");
+				throw;
+			}
+		}
+
+		private void BtnDownloadFile_Click(object sender, RoutedEventArgs e)
+		{
+			/// запрос на API
+		}
+
+		private void BtnLogout_Click(object sender, RoutedEventArgs e)
+		{
+			new MainWindow().Show();
+			Window.GetWindow(this).Close();
+		}
+
+		private void BtnGenerateLink_Click(object sender, RoutedEventArgs e)
 		{
 
 		}

@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:DocumentArchive.Views.Pages.General.Document"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing"
+        StateChanged="Window_StateChanged"
+        IsVisibleChanged="Window_IsVisibleChanged"
         Title="Электронный архив" Height="675" Width="1200">
     <Grid>
         <Frame

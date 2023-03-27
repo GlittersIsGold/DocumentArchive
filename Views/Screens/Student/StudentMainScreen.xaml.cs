@@ -11,5 +11,30 @@ namespace DocumentArchive.Views.Screens.Student
 		{
 			InitializeComponent();
 		}
-	}
+
+		private void BtnLogin_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+
+        }
+
+		private void BtnPrevLbItem_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+
+        }
+
+		private void BtnNextLbItem_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+
+        }
+
+		private void BtnOpenReader_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+
+        }
+
+		private void BtnDownloadFile_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+
+        }
+    }
 }

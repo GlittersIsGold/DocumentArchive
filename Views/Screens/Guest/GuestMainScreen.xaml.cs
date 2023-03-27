@@ -147,5 +147,30 @@ namespace DocumentArchive.Views.Screens.Guest
 				LbPinnedFiles.ScrollIntoView(LbPinnedFiles.SelectedItem);
 			}
 		}
+
+		private void BtnDownloadFile_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void LbPinnedFiles_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			try
+			{
+				var LbItem = ItemsControl.ContainerFromElement(LbPinnedFiles, e.OriginalSource as DependencyObject) as ListBoxItem;
+			
+				if (LbItem != null)
+				{
+					GuestFileInfo selectedDocument = LbItem.Content as GuestFileInfo;
+					FileInfo fileToUpload = DataAccess.EDAEntities.FileInfo.First(f => f.Title == selectedDocument.Title);
+					new ReadWindow(fileToUpload).Show();
+				}
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Возникла ошибка\nсмотрите подробности во внутреннем исключении");
+				throw;
+			}
+		}
 	}
 }

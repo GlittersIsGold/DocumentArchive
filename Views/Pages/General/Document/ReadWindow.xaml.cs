@@ -28,7 +28,7 @@ namespace DocumentArchive.View.Page.General.Document
 				focus.OpenPdf(LocalPath);
 				if (focus.PageCount > 0)
 				{
-					int convertionResult = focus.ToWord(LocalPath.Replace(".pdf", ".docx"));
+					int convertionResult = focus.ToWord(LocalPath = LocalPath.Replace(".pdf", ".docx"), 0, 2);
 					if (convertionResult == 0) 
 					{
 						ReadDocx(LocalPath);

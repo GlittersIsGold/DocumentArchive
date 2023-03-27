@@ -13,7 +13,7 @@ namespace DocumentArchive.Views.Screens.General
 	/// </summary>
 	public partial class LoginScreen : Page
 	{
-		private int userId = 1;
+		private int userId = 2;
 
 		public LoginScreen()
 		{
@@ -58,6 +58,10 @@ namespace DocumentArchive.Views.Screens.General
 							Window.GetWindow(this).Close();
 							break;
 						case 4:
+							new ArchiveMainWindow(userId).Show();
+							Window.GetWindow(this).Close();
+							break;
+						case 5:
 							new ArchiveMainWindow(userId).Show();
 							Window.GetWindow(this).Close();
 							break;
