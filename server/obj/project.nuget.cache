@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0Sb+uGVNiu0AYSa7EAzqU6Sod8Y9IXc5bwCukYP9YeF9gRo+hlYqjUWAqIpgGPjtWtBPxOjJ4dofft2cCbA3SQ==",
+  "dgSpecHash": "xv+cXmjDJo+Yp2W7OEaFrK9dgk6PxQaMm7xgjVmmorRqYfi+SrN22Att0TUr976VsSyLNZ6KQTw1aetJ1//QLA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\shelb\\Desktop\\Diploma\\DocumentArchiveWebAPI\\DocumentArchiveWebAPI.csproj",
+  "projectFilePath": "C:\\Users\\shelb\\Desktop\\Diploma\\DocumentArchive\\server\\DocumentArchiveWebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\shelb\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\shelb\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

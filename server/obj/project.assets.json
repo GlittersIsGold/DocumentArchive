@@ -4102,11 +4102,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\shelb\\Desktop\\Diploma\\DocumentArchiveWebAPI\\DocumentArchiveWebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\shelb\\Desktop\\Diploma\\DocumentArchive\\server\\DocumentArchiveWebAPI.csproj",
       "projectName": "DocumentArchiveWebAPI",
-      "projectPath": "C:\\Users\\shelb\\Desktop\\Diploma\\DocumentArchiveWebAPI\\DocumentArchiveWebAPI.csproj",
+      "projectPath": "C:\\Users\\shelb\\Desktop\\Diploma\\DocumentArchive\\server\\DocumentArchiveWebAPI.csproj",
       "packagesPath": "C:\\Users\\shelb\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\shelb\\Desktop\\Diploma\\DocumentArchiveWebAPI\\obj\\",
+      "outputPath": "C:\\Users\\shelb\\Desktop\\Diploma\\DocumentArchive\\server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
