@@ -18,9 +18,9 @@ namespace DocumentArchive.Views.Screens.General
 	/// </summary>
 	public partial class LoginScreen : Page
 	{
-		private int userId = 2;
-		private string jwt;
-		private UserInfo userInfo;
+		private int UserId { get; set; } = 2;
+		private string Jwt { get; set; }
+		private UserInfo UserInfo { get; set; }
 
 		public LoginScreen()
 		{
@@ -57,43 +57,6 @@ namespace DocumentArchive.Views.Screens.General
 				if (IfUserExists == true)
 				{
 					SendLoginRequest(user);
-
-					if (userInfo != null && jwt != null)
-					{
-						
-
-						switch (userId)
-						{
-							case 1:
-								new ArchiveMainWindow(userId).Show();
-								Window.GetWindow(this).Close();
-								break;
-							case 2:
-								new ArchiveMainWindow(userId).Show();
-								Window.GetWindow(this).Close();
-								break;
-							case 3:
-								new ArchiveMainWindow(userId).Show();
-								Window.GetWindow(this).Close();
-								break;
-							case 4:
-								new ArchiveMainWindow(userId).Show();
-								Window.GetWindow(this).Close();
-								break;
-							case 5:
-								new ArchiveMainWindow(userId).Show();
-								Window.GetWindow(this).Close();
-								break;
-
-							default:
-								throw new Exception("Проблема идентификации пользователя");
-						}
-					}
-					else
-					{
-						MessageBox.Show("Неверные данные");
-						return;
-					}
 				}
 				else
 				{
@@ -123,7 +86,7 @@ namespace DocumentArchive.Views.Screens.General
 
 		private void ButtonContinueAsGuest_Click(object sender, RoutedEventArgs e)
 		{
-			new ArchiveMainWindow(userId).Show();
+			new ArchiveMainWindow(UserId).Show();
 			Window.GetWindow(this).Close();
 		}
 
@@ -145,8 +108,8 @@ namespace DocumentArchive.Views.Screens.General
 
 				if (result != null)
 				{
-					jwt = result;
-					ReceiveUserData(jwt);
+					Jwt = result;
+					ReceiveUserData(Jwt);
 				}
 				else
 				{
@@ -192,8 +155,51 @@ namespace DocumentArchive.Views.Screens.General
 		private void DeserializeReceivedData(string json)
 		{
 			UserInfo serializedData = JsonConvert.DeserializeObject<UserInfo>(json);
-			userInfo = serializedData;
-			userId = Convert.ToInt16(userInfo.Role);
+			
+			UserInfo = serializedData;
+
+			UserId = Convert.ToInt16(UserInfo.Role);
+
+			NavigateUser(UserId);
+		}
+
+		private void NavigateUser(int roleId)
+		{
+			try
+			{
+				switch (roleId)
+				{
+					case 1:
+						new ArchiveMainWindow(roleId).Show();
+						Window.GetWindow(this).Close();
+						break;
+					case 2:
+						new ArchiveMainWindow(roleId).Show();
+						Window.GetWindow(this).Close();
+						break;
+					case 3:
+						new ArchiveMainWindow(roleId).Show();
+						Window.GetWindow(this).Close();
+						break;
+					case 4:
+						new ArchiveMainWindow(roleId).Show();
+						Window.GetWindow(this).Close();
+						break;
+					case 5:
+						new ArchiveMainWindow(roleId).Show();
+						Window.GetWindow(this).Close();
+						break;
+
+					default:
+						throw new Exception("Проблема идентификации пользователя");
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				throw;
+			}
+			
 		}
 	}
 }
