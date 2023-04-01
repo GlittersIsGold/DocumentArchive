@@ -1,4 +1,6 @@
-﻿namespace DocumentArchive.Model
+﻿using System;
+
+namespace DocumentArchive.Model
 {
 	/// <summary>
 	/// Экземпляры этого класса создают новых пользователей в системе при регистрации.
@@ -10,7 +12,7 @@
 		public string Password { get; set; }
 		public string Name { get; set; }
 		public string Email { get; set; }
-		public System.DateTime Registered { get; set; }
+		public DateTime Registered { get; set; }
 		public int RoleId { get; set; }
 	}
 }

@@ -110,7 +110,7 @@ namespace DocumentArchiveWebAPI.Classes
 						new Claim(ClaimTypes.Role, user.RoleId.ToString()),
 						new Claim(ClaimTypes.Email, user.Email),
 						new Claim(ClaimTypes.UserData,
-							"Files uploaded:" + user.UserFiles.Count
+							"\"Files uploaded\"" + ": " + user.UserFiles.Count
 							),
 					};
 			

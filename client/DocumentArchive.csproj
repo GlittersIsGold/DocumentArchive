@@ -116,6 +116,8 @@
     <Compile Include="Model\Description.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Dto\LoginDto.cs" />
+    <Compile Include="Model\Dto\RegisterDto.cs" />
     <Compile Include="Model\FileAccessLevel.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>

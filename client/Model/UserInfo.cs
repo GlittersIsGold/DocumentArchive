@@ -1,17 +1,26 @@
-﻿namespace DocumentArchive.Model
-{
-    /// <summary>
-    /// Хранение данных о пользователе во время сеанса
-    /// </summary>
-	public class UserPrimaryData
-	{
-        internal int Id { get; }
-		internal string Name { get; }
+﻿using Newtonsoft.Json;
+using System;
 
-		public UserPrimaryData(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
-    }
+namespace DocumentArchive.Model
+{
+	/// <summary>
+	/// Хранение данных пользователя, полученных из jwt
+	/// </summary>
+	/// 
+
+	public class UserInfo
+	{
+		public string Id { get; set; }
+		public string Username { get; set; }
+		public string Role { get; set; }
+		public string Email { get; set; }
+		public Stats Stats { get; set; }
+	}
+
+	public class Stats
+	{
+		[JsonProperty("Files uploaded")]
+		public int Filesuploaded { get; set; }
+	}
+
 }

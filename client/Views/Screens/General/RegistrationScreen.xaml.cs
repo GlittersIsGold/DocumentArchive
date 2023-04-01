@@ -1,9 +1,12 @@
 ﻿using DocumentArchive.Controller.Connection;
 using DocumentArchive.Controller.Navigation;
 using DocumentArchive.Model;
+using DocumentArchive.Model.Dto;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -43,30 +46,26 @@ namespace DocumentArchive.Views.Screens.General
 				{
 					List<User> ExistingUsers = DataAccess.EDAEntities.User.ToList();
 
-                    User user = new User()
+                    RegisterDto user = new RegisterDto()
 					{
 						Login = TextBoxLogin.Text,
 						Password = PasswordBoxPassword.Password,
 						Name = TextBoxName.Text,
 						Email = TextBoxEmail.Text,
-						Registered = DateTime.Now,
-						RoleId = 1
 					};
 
-					/// Field checks
-					/// Ovverride Excpetions
-					/// Add async
-					/// Decompose through classes
-
+					
 					bool IsUserExist = ExistingUsers.Any(x => x.Email == user.Email || x.Login == user.Login);
 
 					if (IsUserExist == false)
 					{
 						try
 						{
-							DataAccess.EDAEntities.User.Add(user);
-							DataAccess.EDAEntities.SaveChanges();
+
+							SendRegisterRequest(user);
+
 							MessageBox.Show("Данные отправлены, дождитесь подтверждения");
+							FrameTransition.Navigator.Navigate(new LoginScreen());
 						}
 						catch (Exception ex)
 						{
@@ -89,6 +88,21 @@ namespace DocumentArchive.Views.Screens.General
 			else
 			{
 				MessageBox.Show("Введённые данные не соответствуют требованиям");
+			}
+
+			async void SendRegisterRequest(RegisterDto user)
+			{
+				var json = JsonConvert.SerializeObject(user);
+
+				var data = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+				var url = "http://localhost:5106/api/auth/register";
+
+				var client = new HttpClient();
+
+				var response = await client.PostAsync(url, data);
+
+				var result = await response.Content.ReadAsStringAsync();
 			}
 		}
 	}

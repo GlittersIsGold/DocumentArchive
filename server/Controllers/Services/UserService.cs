@@ -31,8 +31,18 @@ namespace DocumentArchiveWebAPI.Controllers.Services
 				role = _contextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Role);
 				email = _contextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Email);
 				userData = _contextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.UserData);
-				
-				result = id + "\n" + name + "\n" + role + "\n" + email + "\n" + userData;
+
+				result =$$"""
+						{
+						 "Id": "{{id}}",
+						 "Username": "{{name}}",
+						 "Role": "{{role}}",
+						 "Email": "{{email}}",
+						 "Stats": {
+						   {{userData}}
+						 } 
+						}
+						""";
 				return result;
 			}
 			else

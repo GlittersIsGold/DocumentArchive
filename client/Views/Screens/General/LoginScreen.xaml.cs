@@ -1,10 +1,15 @@
 ﻿using DocumentArchive.Controller.Connection;
 using DocumentArchive.Controller.Navigation;
+using DocumentArchive.Model;
+using DocumentArchive.Model.Dto;
 using DocumentArchive.Views.Pages.General.Document;
+using Newtonsoft.Json;
 using System;
-using System.Linq;
+using System.Text;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace DocumentArchive.Views.Screens.General
 {
@@ -14,11 +19,13 @@ namespace DocumentArchive.Views.Screens.General
 	public partial class LoginScreen : Page
 	{
 		private int userId = 2;
+		private string jwt;
+		private UserInfo userInfo;
 
 		public LoginScreen()
 		{
 			InitializeComponent();
-			DataAccess.EDAEntities = new Model.ElectronicDocumentArchiveEntities();
+			DataAccess.EDAEntities = new ElectronicDocumentArchiveEntities();
 
 			/// Исправить на binding -https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/application-settings-architecture?view=netframeworkdesktop-4.8
 			if (Properties.Settings.Default.IsChbClicked == true)
@@ -29,51 +36,71 @@ namespace DocumentArchive.Views.Screens.General
 			}
 		}
 
+		/// <summary>
+		/// Вход в аккаунт
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		/// <exception cref="Exception"></exception>
 		private void ButtonSignIn_Click(object sender, RoutedEventArgs e)
 		{
 			try
 			{
-				var UserDataToLogin = 
-					DataAccess.EDAEntities.User.FirstOrDefault(
-						u => u.Login == TextBoxLogin.Text && u.Password == PasswordBoxPassword.Password
-						);
-
-				if (UserDataToLogin != null)
+				LoginDto user = new LoginDto() 
 				{
+					login = TextBoxLogin.Text,
+					password = PasswordBoxPassword.Password,
+				};
 
-					userId = UserDataToLogin.Id;
-					
-					switch (UserDataToLogin.RoleId)
+				bool IfUserExists = DataAccess.EDAEntities.User.Any( u => u.Login == user.login );
+
+				if (IfUserExists == true)
+				{
+					SendLoginRequest(user);
+
+					if (userInfo != null && jwt != null)
 					{
-						case 1:
-							new ArchiveMainWindow(userId).Show();
-							Window.GetWindow(this).Close();
-							break;
-						case 2:
-							new ArchiveMainWindow(userId).Show();
-							Window.GetWindow(this).Close();
-							break;
-						case 3:
-							new ArchiveMainWindow(userId).Show();
-							Window.GetWindow(this).Close();
-							break;
-						case 4:
-							new ArchiveMainWindow(userId).Show();
-							Window.GetWindow(this).Close();
-							break;
-						case 5:
-							new ArchiveMainWindow(userId).Show();
-							Window.GetWindow(this).Close();
-							break;
+						
 
-						default: 
-							throw new Exception("Проблема идентификации пользователя");
+						switch (userId)
+						{
+							case 1:
+								new ArchiveMainWindow(userId).Show();
+								Window.GetWindow(this).Close();
+								break;
+							case 2:
+								new ArchiveMainWindow(userId).Show();
+								Window.GetWindow(this).Close();
+								break;
+							case 3:
+								new ArchiveMainWindow(userId).Show();
+								Window.GetWindow(this).Close();
+								break;
+							case 4:
+								new ArchiveMainWindow(userId).Show();
+								Window.GetWindow(this).Close();
+								break;
+							case 5:
+								new ArchiveMainWindow(userId).Show();
+								Window.GetWindow(this).Close();
+								break;
+
+							default:
+								throw new Exception("Проблема идентификации пользователя");
+						}
+					}
+					else
+					{
+						MessageBox.Show("Неверные данные");
+						return;
 					}
 				}
 				else
 				{
-					MessageBox.Show("Неверные данные");
+					MessageBox.Show("Такого пользователя не существует");
+					return;
 				}
+
 			}
 			catch (Exception ex)
 			{
@@ -98,6 +125,75 @@ namespace DocumentArchive.Views.Screens.General
 		{
 			new ArchiveMainWindow(userId).Show();
 			Window.GetWindow(this).Close();
+		}
+
+		/// <summary>
+		/// Отправляет данные пользователя для входа в систему
+		/// </summary>
+		/// <param name="user">данные для входа: логин, пароль</param>
+		async void SendLoginRequest(LoginDto user)
+		{
+			try
+			{
+				var json = JsonConvert.SerializeObject(user);
+				var data = new StringContent(json, Encoding.UTF8, "application/json");
+				var url = "http://localhost:5106/api/auth/login";
+				var client = new HttpClient();
+				var response = await client.PostAsync(url, data);
+
+				var result = await response.Content.ReadAsStringAsync();
+
+				if (result != null)
+				{
+					jwt = result;
+					ReceiveUserData(jwt);
+				}
+				else
+				{
+					return;
+				}
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Произошла ошибка\n");
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Возвращает основные данные пользователя
+		/// </summary>
+		/// <param name="jwt">токен аутентификации пользователя</param>
+		async void ReceiveUserData(string jwt)
+		{
+			try
+			{
+				var url = "http://localhost:5106/api/auth/user-data";
+
+				var client = new HttpClient();
+				
+				client.DefaultRequestHeaders.Add("Authorization", $"Bearer {jwt}");
+				var result = await client.GetStringAsync(url);
+
+				DeserializeReceivedData(result);
+
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Произошла ошибка\n");
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Десериализация пользовательских данных
+		/// </summary>
+		/// <param name="json">строка с объектной нотацией java-script</param>
+		private void DeserializeReceivedData(string json)
+		{
+			UserInfo serializedData = JsonConvert.DeserializeObject<UserInfo>(json);
+			userInfo = serializedData;
+			userId = Convert.ToInt16(userInfo.Role);
 		}
 	}
 }
