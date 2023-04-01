@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\shelb\Desktop\Diploma\DocumentArchive\App\obj\Debug\
+C:\Users\shelb\Desktop\Diploma\DocumentArchive\client\obj\Debug\
 DocumentArchive
 none
 false
 DEBUG;TRACE
-C:\Users\shelb\Desktop\Diploma\DocumentArchive\App\App.xaml
+C:\Users\shelb\Desktop\Diploma\DocumentArchive\client\App.xaml
 13-781137633
 21508366431
-39-88681379
-22-1898755067
+401833096742
+22252115729
 MainWindow.xaml;Views\Pages\Alert\NotificationWindow.xaml;Views\Pages\Exception\ErrorWindow.xaml;Views\Pages\General\Document\ArchiveMainWindow.xaml;Views\Pages\General\Document\ReadWindow.xaml;Views\Pages\General\Document\ShareWindow.xaml;Views\Pages\General\Document\StatisticWindow.xaml;Views\Screens\General\LoginScreen.xaml;Views\Screens\General\RegistrationScreen.xaml;Views\Screens\Guest\GuestMainScreen.xaml;Views\Screens\Staff\StaffMainScreen.xaml;Views\Screens\Student\StudentMainScreen.xaml;Views\Screens\Teacher\TeacherMainScreen.xaml;
 
-False
+True
 

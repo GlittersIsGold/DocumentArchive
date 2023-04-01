@@ -36,7 +36,7 @@ public partial class ElectronicDocumentArchiveManagementContext : DbContext
     public virtual DbSet<UserFile> UserFiles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer();
+        => optionsBuilder.UseSqlServer("");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -143,7 +143,7 @@ public partial class ElectronicDocumentArchiveManagementContext : DbContext
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.Login).HasMaxLength(50);
             entity.Property(e => e.Name).HasMaxLength(50);
-            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.Password).HasMaxLength(150);
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)

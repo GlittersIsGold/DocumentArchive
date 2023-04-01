@@ -16,17 +16,29 @@ namespace DocumentArchiveWebAPI.Controllers.Services
 
 		string IUserService.GetUserData()
 		{
-			string? result, uId;
+			string? 
+				result,
+				id,
+				name,
+				role,
+				email,
+				userData;
 
 			if (_contextAccessor != null)
 			{
-				uId = _contextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);	
+				id = _contextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid);	
+				name = _contextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
+				role = _contextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Role);
+				email = _contextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Email);
+				userData = _contextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.UserData);
 				
-				return result = uId;
+				result = id + "\n" + name + "\n" + role + "\n" + email + "\n" + userData;
+				return result;
 			}
 			else
 			{
-				return result = "123";
+				result = "No data found";
+				return result;
 			}
 		}
 	}

@@ -67,13 +67,16 @@ namespace DocumentArchiveWebAPI.Classes
 
 				if (user != null)
 				{
-					if (!BCrypt.Net.BCrypt.Verify(loginDto.Password, loginDto.Password))
+					if (BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password))
+					{
+						string token = GenerateToken(user);
+						return Ok(token);
+					}
+
+					else 
 					{
 						return UnprocessableEntity();
-					}
-					string token = GenerateToken(user);
-
-					return Ok(user);
+					}	
 				}
 				else
 				{
@@ -103,8 +106,8 @@ namespace DocumentArchiveWebAPI.Classes
 					List<Claim> claims = new()
 					{
 						new Claim(ClaimTypes.Sid, user.Id.ToString()),
-						new Claim(ClaimTypes.NameIdentifier, user.Login),
-						new Claim(ClaimTypes.Role, user.Role.Name),
+						new Claim(ClaimTypes.Name, user.Login),
+						new Claim(ClaimTypes.Role, user.RoleId.ToString()),
 						new Claim(ClaimTypes.Email, user.Email),
 						new Claim(ClaimTypes.UserData,
 							"Files uploaded:" + user.UserFiles.Count
@@ -127,7 +130,7 @@ namespace DocumentArchiveWebAPI.Classes
 
 				return "Can`t create token on wrong data";
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				return "Token generation not working";
 			}
