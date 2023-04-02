@@ -212,7 +212,34 @@ namespace DocumentArchive.Views.Screens.Teacher
 
 		private void BtnDownloadFile_Click(object sender, RoutedEventArgs e)
 		{
-			/// запрос на API
+			try
+			{
+				GuestFileInfo selectedFile = ((FrameworkElement)sender).DataContext as GuestFileInfo;
+
+				Model.FileInfo fileToUpload = DataAccess.EDAEntities.FileInfo.First(f => f.Title == selectedFile.Title);
+
+				SaveFileDialog sfd = new SaveFileDialog()
+				{
+					Filter = "*.pdf|*.pdf|*.docx|*.docx",
+					Title = "Сохранить",
+					FileName = selectedFile.Title
+				};
+
+				var dr = sfd.ShowDialog();
+
+				if (sfd.FileName != string.Empty && dr == DialogResult.OK)
+				{
+					File.WriteAllBytes(sfd.FileName, fileToUpload.Expression);
+				}
+				else if (dr == DialogResult.Cancel)
+				{
+					return;
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 		}
 
 		private void BtnLogout_Click(object sender, RoutedEventArgs e)

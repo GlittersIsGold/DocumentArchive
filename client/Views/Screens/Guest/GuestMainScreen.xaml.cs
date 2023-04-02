@@ -3,11 +3,13 @@ using DocumentArchive.Model;
 using DocumentArchive.View.Page.General.Document;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Threading;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DocumentArchive.Views.Screens.Guest
 {
@@ -109,7 +111,7 @@ namespace DocumentArchive.Views.Screens.Guest
 			{
 				GuestFileInfo selectedFile = ((FrameworkElement)sender).DataContext as GuestFileInfo;
 
-				FileInfo fileToUpload = DataAccess.EDAEntities.FileInfo.First( f => f.Title == selectedFile.Title);
+				Model.FileInfo fileToUpload = DataAccess.EDAEntities.FileInfo.First( f => f.Title == selectedFile.Title);
 
 				new ReadWindow(fileToUpload).Show();
 			}
@@ -150,7 +152,34 @@ namespace DocumentArchive.Views.Screens.Guest
 
 		private void BtnDownloadFile_Click(object sender, RoutedEventArgs e)
 		{
+			try
+			{
+				GuestFileInfo selectedFile = ((FrameworkElement)sender).DataContext as GuestFileInfo;
 
+				Model.FileInfo fileToUpload = DataAccess.EDAEntities.FileInfo.First( f => f.Title == selectedFile.Title);
+
+				SaveFileDialog sfd = new SaveFileDialog()
+				{
+					Filter = "*.pdf|*.pdf|*.docx|*.docx",
+					Title = "Сохранить",
+					FileName = selectedFile.Title 
+				};
+
+				var dr = sfd.ShowDialog();
+				
+				if (sfd.FileName != string.Empty && dr == DialogResult.OK)
+				{
+					File.WriteAllBytes(sfd.FileName, fileToUpload.Expression);
+				}
+				else if ( dr == DialogResult.Cancel)
+				{
+					return;
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 		}
 
 		private void LbPinnedFiles_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -162,7 +191,7 @@ namespace DocumentArchive.Views.Screens.Guest
 				if (LbItem != null)
 				{
 					GuestFileInfo selectedDocument = LbItem.Content as GuestFileInfo;
-					FileInfo fileToUpload = DataAccess.EDAEntities.FileInfo.First(f => f.Title == selectedDocument.Title);
+					Model.FileInfo fileToUpload = DataAccess.EDAEntities.FileInfo.First(f => f.Title == selectedDocument.Title);
 					new ReadWindow(fileToUpload).Show();
 				}
 			}

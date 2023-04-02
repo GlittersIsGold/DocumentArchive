@@ -1,4 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using DocumentArchive.Controller.Connection;
+using DocumentArchive.Model;
+using System.Windows;
+using System;
+using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace DocumentArchive.Views.Screens.Student
 {
@@ -34,7 +39,7 @@ namespace DocumentArchive.Views.Screens.Student
 
 		private void BtnDownloadFile_Click(object sender, System.Windows.RoutedEventArgs e)
 		{
-
-        }
+			
+		}
     }
 }

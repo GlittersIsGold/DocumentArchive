@@ -101,18 +101,21 @@ namespace DocumentArchive.Views.Screens.General
 				var json = JsonConvert.SerializeObject(user);
 				var data = new StringContent(json, Encoding.UTF8, "application/json");
 				var url = "http://localhost:5106/api/auth/login";
+
 				var client = new HttpClient();
 				var response = await client.PostAsync(url, data);
 
 				var result = await response.Content.ReadAsStringAsync();
+				var IsSucces = response.IsSuccessStatusCode;
 
-				if (result != null)
+				if (result != null && IsSucces == true)
 				{
 					Jwt = result;
 					ReceiveUserData(Jwt);
 				}
 				else
 				{
+					MessageBox.Show("Вход не выполнен\n");
 					return;
 				}
 			}

@@ -7,8 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms.VisualStyles;
 
 namespace DocumentArchive.Views.Screens.General
 {
@@ -38,9 +40,9 @@ namespace DocumentArchive.Views.Screens.General
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		/// <exception cref="Exception"></exception>
-		private void ButtonSignUp_Click(object sender, RoutedEventArgs e)
+		private async void ButtonSignUp_Click(object sender, RoutedEventArgs e)
 		{
-			if (TextBoxLogin.Text.Length > 6 && PasswordBoxPassword.Password.Length > 12 && TextBoxName.Text.Length > 4 && TextBoxEmail.Text.Length > 5)
+			if (TextBoxLogin.Text.Length >= 4 && PasswordBoxPassword.Password.Length >= 4 && TextBoxName.Text.Length >= 4 && TextBoxEmail.Text.Length >= 4)
 			{
 				try
 				{
@@ -53,23 +55,29 @@ namespace DocumentArchive.Views.Screens.General
 						Name = TextBoxName.Text,
 						Email = TextBoxEmail.Text,
 					};
-
 					
-					bool IsUserExist = ExistingUsers.Any(x => x.Email == user.Email || x.Login == user.Login);
+					User IsUserExist = ExistingUsers.Find(x => x.Email == user.Email || x.Login == user.Login);
 
-					if (IsUserExist == false)
+					if (IsUserExist == null)
 					{
 						try
 						{
 
-							SendRegisterRequest(user);
+							bool TryRegister = await SendRegisterRequest(user);
 
-							MessageBox.Show("Данные отправлены, дождитесь подтверждения");
-							FrameTransition.Navigator.Navigate(new LoginScreen());
+							if (TryRegister == true) 
+							{
+								MessageBox.Show("Данные отправлены, дождитесь подтверждения");
+								FrameTransition.Navigator.Navigate(new LoginScreen());
+							}
+							else
+							{
+								MessageBox.Show("Ошибка реистрации");
+							}
 						}
 						catch (Exception ex)
 						{
-							MessageBox.Show("При попытке регистарции возникла проблема");
+							MessageBox.Show("При регистарции возникла проблема");
 							throw new Exception(ex.Message);
 						}
 					}
@@ -89,21 +97,23 @@ namespace DocumentArchive.Views.Screens.General
 			{
 				MessageBox.Show("Введённые данные не соответствуют требованиям");
 			}
+		}
 
-			async void SendRegisterRequest(RegisterDto user)
-			{
-				var json = JsonConvert.SerializeObject(user);
+		async Task<bool> SendRegisterRequest(RegisterDto user)
+		{
+			var json = JsonConvert.SerializeObject(user);
 
-				var data = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+			var data = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-				var url = "http://localhost:5106/api/auth/register";
+			var url = "http://localhost:5106/api/auth/register";
 
-				var client = new HttpClient();
+			var client = new HttpClient();
 
-				var response = await client.PostAsync(url, data);
+			var response = await client.PostAsync(url, data);
 
-				var result = await response.Content.ReadAsStringAsync();
-			}
+			var result = await response.Content.ReadAsStringAsync();
+
+			return response.IsSuccessStatusCode;
 		}
 	}
 }

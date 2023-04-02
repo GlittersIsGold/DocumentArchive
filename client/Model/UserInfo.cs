@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
-using System;
 
 namespace DocumentArchive.Model
 {
 	/// <summary>
-	/// Хранение данных пользователя, полученных из jwt
+	/// Класс десериализации пользовательских данных из jwt
 	/// </summary>
-	/// 
-
 	public class UserInfo
 	{
 		public string Id { get; set; }
