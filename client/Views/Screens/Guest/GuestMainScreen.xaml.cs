@@ -24,18 +24,17 @@ namespace DocumentArchive.Views.Screens.Guest
 		public GuestMainScreen()
 		{
 			InitializeComponent();
-			
+
 			try
 			{
-
-				List<GuestFileInfo> DgData = DataAccess.EDAEntities.GuestFileInfo.ToList();
+				List<GuestFileInfo> DgData = DataAccess.EDAEntities.GuestFileInfo.Where(f => f.AccessLevelId == 1).ToList();
 
 				if (DgData != null)
 				{
 					if (DgData.Count > 0)
 					{
 						DgPublicFiles.ItemsSource = DgData;
-						LbPinnedFiles.ItemsSource = DgData;
+						LbPinnedFiles.ItemsSource = DgData.Where(f => f.IsPinned == true).ToList();
 						InfoUpdated = DateTime.Now;
 						RnLastUpdate.Text = InfoUpdated.ToString("T");
 						RnCountFiles.Text = DgData.Count.ToString();
@@ -71,14 +70,14 @@ namespace DocumentArchive.Views.Screens.Guest
 			try
 			{
 				
-				List<GuestFileInfo> DgData = DataAccess.EDAEntities.GuestFileInfo.ToList();
+				List<GuestFileInfo> DgData = DataAccess.EDAEntities.GuestFileInfo.Where(f => f.AccessLevelId == 1).ToList();
 
 				if (DgData != null)
 				{
 					if (DgData.Count > 0)
 					{
 						DgPublicFiles.ItemsSource = DgData;
-						LbPinnedFiles.ItemsSource = DgData;
+						LbPinnedFiles.ItemsSource = DgData.Where(f => f.IsPinned == true).ToList();
 						InfoUpdated = DateTime.Now;
 						RnLastUpdate.Text = InfoUpdated.ToString("T");
 						RnCountFiles.Text = DgData.Count.ToString();

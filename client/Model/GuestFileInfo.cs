@@ -19,6 +19,8 @@ namespace DocumentArchive.Model
         public string Description { get; set; }
         public System.DateTime Created { get; set; }
         public string ShareLink { get; set; }
+        public int AccessLevelId { get; set; }
+        public Nullable<bool> IsPinned { get; set; }
 
 		public string DocImg
 		{

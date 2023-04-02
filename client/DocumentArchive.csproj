@@ -309,6 +309,10 @@
     <Resource Include="Resources\pptxLogo.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\openFileIcon.png" />
+    <Resource Include="Resources\downloadFileIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\DbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DbModel.edmx</DependentUpon>
@@ -319,8 +323,6 @@
       <DependentUpon>DbModel.edmx</DependentUpon>
       <LastGenOutput>DbModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\openFileIcon.png" />
-    <Resource Include="Resources\downloadFileIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

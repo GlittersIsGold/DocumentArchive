@@ -39,6 +39,7 @@
     <Property Name="CategoryId" Type="Int32" Nullable="false" />
     <Property Name="AccessLevelId" Type="Int32" Nullable="false" />
     <Property Name="ShareLink" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsPinned" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Category" Relationship="Self.FK_FileInfo_Category" FromRole="FileInfo" ToRole="Category" />
     <NavigationProperty Name="Description1" Relationship="Self.FK_Description_FileInfo" FromRole="FileInfo" ToRole="Description" />
     <NavigationProperty Name="FileAccessLevel" Relationship="Self.FK_FileInfo_FileAccessLevel" FromRole="FileInfo" ToRole="FileAccessLevel" />
@@ -92,7 +93,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Registered" Type="DateTime" Nullable="false" Precision="7" />
@@ -118,12 +119,15 @@
       <PropertyRef Name="Description" />
       <PropertyRef Name="Created" />
       <PropertyRef Name="ShareLink" />
+      <PropertyRef Name="AccessLevelId" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Title" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
     <Property Name="ShareLink" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AccessLevelId" Type="Int32" Nullable="false" />
+    <Property Name="IsPinned" Type="Boolean" />
   </EntityType>
   <Association Name="FK_FileInfo_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="1" />

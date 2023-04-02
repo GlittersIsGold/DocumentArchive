@@ -38,6 +38,7 @@
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="AccessLevelId" ColumnName="AccessLevelId" />
           <ScalarProperty Name="ShareLink" ColumnName="ShareLink" />
+          <ScalarProperty Name="IsPinned" ColumnName="IsPinned" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -112,6 +113,8 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Created" ColumnName="Created" />
           <ScalarProperty Name="ShareLink" ColumnName="ShareLink" />
+          <ScalarProperty Name="AccessLevelId" ColumnName="AccessLevelId" />
+          <ScalarProperty Name="IsPinned" ColumnName="IsPinned" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

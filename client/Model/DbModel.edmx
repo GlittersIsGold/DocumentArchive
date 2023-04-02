@@ -40,6 +40,7 @@
           <Property Name="CategoryId" Type="int" Nullable="false" />
           <Property Name="AccessLevelId" Type="int" Nullable="false" />
           <Property Name="ShareLink" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsPinned" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="FilterStorage">
           <Key>
@@ -83,7 +84,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Registered" Type="datetime2" Precision="7" Nullable="false" />
@@ -107,12 +108,15 @@
             <PropertyRef Name="Description" />
             <PropertyRef Name="Created" />
             <PropertyRef Name="ShareLink" />
+            <PropertyRef Name="AccessLevelId" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="Created" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ShareLink" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="AccessLevelId" Type="int" Nullable="false" />
+          <Property Name="IsPinned" Type="bit" />
         </EntityType>
         <Association Name="FK_Description_FileInfo">
           <End Role="FileInfo" Type="Self.FileInfo" Multiplicity="1" />
@@ -239,7 +243,9 @@
     [GuestFileInfo].[Title] AS [Title], 
     [GuestFileInfo].[Description] AS [Description], 
     [GuestFileInfo].[Created] AS [Created], 
-    [GuestFileInfo].[ShareLink] AS [ShareLink]
+    [GuestFileInfo].[ShareLink] AS [ShareLink], 
+    [GuestFileInfo].[AccessLevelId] AS [AccessLevelId], 
+    [GuestFileInfo].[IsPinned] AS [IsPinned]
     FROM [dbo].[GuestFileInfo] AS [GuestFileInfo]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Description_FileInfo" Association="Self.FK_Description_FileInfo">
@@ -323,6 +329,7 @@
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="AccessLevelId" Type="Int32" Nullable="false" />
           <Property Name="ShareLink" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsPinned" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_FileInfo_Category" FromRole="FileInfo" ToRole="Category" />
           <NavigationProperty Name="Description1" Relationship="Self.FK_Description_FileInfo" FromRole="FileInfo" ToRole="Description" />
           <NavigationProperty Name="FileAccessLevel" Relationship="Self.FK_FileInfo_FileAccessLevel" FromRole="FileInfo" ToRole="FileAccessLevel" />
@@ -376,7 +383,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Registered" Type="DateTime" Nullable="false" Precision="7" />
@@ -402,12 +409,15 @@
             <PropertyRef Name="Description" />
             <PropertyRef Name="Created" />
             <PropertyRef Name="ShareLink" />
+            <PropertyRef Name="AccessLevelId" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ShareLink" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccessLevelId" Type="Int32" Nullable="false" />
+          <Property Name="IsPinned" Type="Boolean" />
         </EntityType>
         <Association Name="FK_FileInfo_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -609,6 +619,7 @@
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="AccessLevelId" ColumnName="AccessLevelId" />
                 <ScalarProperty Name="ShareLink" ColumnName="ShareLink" />
+                <ScalarProperty Name="IsPinned" ColumnName="IsPinned" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -683,6 +694,8 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="ShareLink" ColumnName="ShareLink" />
+                <ScalarProperty Name="AccessLevelId" ColumnName="AccessLevelId" />
+                <ScalarProperty Name="IsPinned" ColumnName="IsPinned" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

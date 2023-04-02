@@ -23,6 +23,8 @@ public partial class FileInfo
 
     public string ShareLink { get; set; } = null!;
 
+    public bool IsPinned { get; set; }
+
     public virtual FileAccessLevel AccessLevel { get; set; } = null!;
 
     public virtual Category Category { get; set; } = null!;

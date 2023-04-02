@@ -40,14 +40,14 @@ namespace DocumentArchive.Views.Screens.Teacher
 			try
 			{
 
-				List<GuestFileInfo> DgData = DataAccess.EDAEntities.GuestFileInfo.ToList();
+				List<GuestFileInfo> DgData = DataAccess.EDAEntities.GuestFileInfo.Where(f => f.AccessLevelId == 3).ToList();
 
 				if (DgData != null)
 				{
 					if (DgData.Count > 0)
 					{
 						DgPublicFiles.ItemsSource = DgData;
-						LbPinnedFiles.ItemsSource = DgData;
+						LbPinnedFiles.ItemsSource = DgData.Where(f => f.IsPinned == true && f.AccessLevelId == 3).ToList();
 						InfoUpdated = DateTime.Now;
 						RnLastUpdate.Text = InfoUpdated.ToString("T");
 						RnCountFiles.Text = DgData.Count.ToString();
@@ -83,14 +83,14 @@ namespace DocumentArchive.Views.Screens.Teacher
 			try
 			{
 
-				List<GuestFileInfo> DgData = DataAccess.EDAEntities.GuestFileInfo.ToList();
+				List<GuestFileInfo> DgData = DataAccess.EDAEntities.GuestFileInfo.Where(f => f.AccessLevelId == 3).ToList();
 
 				if (DgData != null)
 				{
 					if (DgData.Count > 0)
 					{
 						DgPublicFiles.ItemsSource = DgData;
-						LbPinnedFiles.ItemsSource = DgData;
+						LbPinnedFiles.ItemsSource = DgData.Where(f => f.IsPinned == true && f.AccessLevelId == 3).ToList();
 						InfoUpdated = DateTime.Now;
 						RnLastUpdate.Text = InfoUpdated.ToString("T");
 						RnCountFiles.Text = DgData.Count.ToString();
@@ -154,6 +154,7 @@ namespace DocumentArchive.Views.Screens.Teacher
 							CategoryId = 1,
 							AccessLevelId = 1,
 							ShareLink = "нет",
+							IsPinned = false,
 						};
 
 						DataAccess.EDAEntities.FileInfo.Add(file);

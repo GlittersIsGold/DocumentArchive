@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a8e0d46ef9cd4fbc8b334a4ea8fc29af" Name="Diagram1">
+      <Diagram DiagramId="b3227d5b46ee494584d3ccbf44f2d706" Name="Diagram1">
         <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.Category" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.Description" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.FileAccessLevel" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.FileInfo" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.FileInfo" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.FilterStorage" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.Role" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ElectronicDocumentArchiveModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="7.5" IsExpanded="true" />

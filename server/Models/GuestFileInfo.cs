@@ -14,4 +14,8 @@ public partial class GuestFileInfo
     public DateTime Created { get; set; }
 
     public string ShareLink { get; set; } = null!;
+
+    public int AccessLevelId { get; set; }
+
+    public bool IsPinned { get; set; }
 }
