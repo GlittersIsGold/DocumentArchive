@@ -29,9 +29,9 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <Button 
-                    Name="BtnLogin"
-                    Click="BtnLogin_Click"
-                    Content="Войти" 
+                    Name="BtnLogout"
+                    Click="BtnLogout_Click"
+                    Content="Выйти" 
                     HorizontalAlignment="Right"/>
                 </StackPanel>
             </Grid>
@@ -84,6 +84,7 @@
                     Name="LbPinnedFiles"
                     Grid.Column="1"
                     Margin="0"
+                    PreviewMouseDown="LbPinnedFiles_PreviewMouseDown"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <ListBox.ItemsPanel>

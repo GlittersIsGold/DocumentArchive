@@ -122,7 +122,7 @@ namespace DocumentArchive.Views.Screens.Teacher
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private async void BtnUploadFile_Click(object sender, RoutedEventArgs e)
+		private void BtnUploadFile_Click(object sender, RoutedEventArgs e)
 		{
 
 			OpenFileDialog dialogScreen = new OpenFileDialog
@@ -158,7 +158,7 @@ namespace DocumentArchive.Views.Screens.Teacher
 						};
 
 						DataAccess.EDAEntities.FileInfo.Add(file);
-						await DataAccess.EDAEntities.SaveChangesAsync();
+						DataAccess.EDAEntities.SaveChanges();
 					}
 
 					System.Windows.MessageBox.Show("Файл(ы) успешно загружены");

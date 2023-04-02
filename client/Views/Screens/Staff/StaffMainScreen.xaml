@@ -111,6 +111,7 @@
                     Name="LbPinnedFiles"
                     Grid.Column="1"
                     Margin="0"
+                    PreviewMouseDown="LbPinnedFiles_PreviewMouseDown"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <ListBox.ItemsPanel>
